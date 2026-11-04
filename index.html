@@ -228,7 +228,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
   <div class="fmt"><b>নম্বর কীভাবে হবে</b>প্রতিটি সঠিক উত্তরে 1 নম্বর। প্রতিটি ভুলে 0.25 কাটা যাবে, অর্থাৎ 4টা ভুলে 1 নম্বর। উত্তর না দিলে কিছু কাটা যাবে না।</div></details>
 </div>
 <div class="row2"><button class="btn alt" id="histBtn">📋 ফলাফল</button><button class="btn alt" id="xBtn">📊 সুবিধা</button><button class="btn alt" id="bkBtn">💾 ব্যাকআপ</button></div>
-<div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div><div class="card" id="liveExamListWrap"><h2>📋 সব পরীক্ষা</h2><p class="mu" style="font-size:14px">নতুন পরীক্ষা এখানে আসবে। লাইভ পরীক্ষায় চাপ দাও।</p><div id="liveExamList"></div></div>
+<div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div><div class="card" id="liveExamListWrap"><h2>🔴 লাইভ পরীক্ষা</h2><p class="mu" style="font-size:14px">নতুন পরীক্ষা এখানে আসবে। লাইভ পরীক্ষায় চাপ দাও।</p><div id="liveExamList"></div></div>
 <div class="card" id="pastLiveWrap"><h2>📋 আমার পুরনো লাইভ রেজাল্ট</h2><p class="mu" style="font-size:14px">আগের লাইভ পরীক্ষা দেখতে আইডি লেখো।</p><input id="pastLiveId" placeholder="তোমার আইডি" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0"><button class="btn" type="button" onclick="liveLoadPastResults()">পুরনো রেজাল্ট দেখো</button><div id="pastLiveList"></div></div><div class="card hide" id="pastLiveDetailWrap"><h2 id="pastLiveDetailTitle">বিস্তারিত</h2><div id="pastLiveDetailBody"></div><button class="btn alt" type="button" onclick="document.getElementById('pastLiveDetailWrap').classList.add('hide')">পেছনে</button></div>
 <div class="row2"><button class="btn alt" type="button" onclick="liveShowAdmin()">🔐 অ্যাডমিন</button></div>
 <div class="card hide" id="resume"><h2>আগের পরীক্ষা অসম্পূর্ণ আছে</h2><button class="btn alt" id="resumeBtn" style="margin-top:0">চালিয়ে যাও</button></div>
@@ -297,7 +297,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 <button class="btn alt" type="button" onclick="liveStop()">⏹ বন্ধ করো</button>
 <button class="btn alt" type="button" onclick="liveLoadAdminResults()">📋 ফলাফল ও লিডারবোর্ড দেখো</button>
 </div>
-<div class="card hide" id="liveAdminResults"><h2>ফলাফল ও লিডারবোর্ড</h2><div id="liveAdminResultsBody"></div></div>
+<div class="card hide" id="liveAdminResults"><h2>ফলাফল ও লিডারবোর্ড</h2><div id="liveAdminResultsBody"></div><div id="liveAdminDetail" class="hide"></div></div>
 </section>
 
 <section id="liveExam" class="hide">
@@ -469,7 +469,7 @@ function attemptRow(h,lab,cor,prev){
   a.append(el("span","chip"+(cor?" c2":""),lab),sc,el("span","pc "+mc(pr),Math.round(pr)+"%"));
   if(prev!=null){const df=Math.round(pr-prev);if(df)a.append(el("span","df "+(df>0?"up":"dn"),(df>0?"▲ +":"▼ ")+Math.abs(df)+"%"))}
   const x=el("button","xb","✕");x.type="button";x.setAttribute("aria-label","মুছো");x.onclick=e=>{e.stopPropagation();delAttempt(h)};a.appendChild(x);
-  const b=el("div","a2");[["g","✔ "+BN(h.ok)],["r","✘ "+BN(h.no)],["","বাদ "+BN(h.sk)],h.no?["r","কাটা −"+fm(h.no*NEG)]:null,h.sec?["","⏱ "+mmss(h.sec)]:null,["",d]].filter(Boolean).forEach(z=>b.appendChild(el("span",z[0],z[1])));
+  const b=el("div","a2");const det=el("button","ib","বিস্তারিত দেখো");det.type="button";det.onclick=e=>{e.stopPropagation();openRec(h)};b.appendChild(det);[["g","✔ "+BN(h.ok)],["r","✘ "+BN(h.no)],["","বাদ "+BN(h.sk)],h.no?["r","কাটা −"+fm(h.no*NEG)]:null,h.sec?["","⏱ "+mmss(h.sec)]:null,["",d]].filter(Boolean).forEach(z=>b.appendChild(el("span",z[0],z[1])));
   r.append(a,b);r.onclick=()=>openRec(h);return r}
 function renderHist(){
   bkUI();const box=$("hlist");box.textContent="";
@@ -699,13 +699,14 @@ function liveLoadExamList(){
   if(!liveInit()) return;
   liveDb.ref("liveExam/history").once("value").then(function(snap){
     var all = snap.val() || {};
-    var list = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
+    var allList = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
+    var list = liveData && liveData.examId ? allList.filter(function(ex){ return ex.examId === liveData.examId; }) : [];
     var box = document.getElementById("liveExamList"); if(!box) return;
     var latestLive = null; list.forEach(function(ex){ if(liveIsLive(ex) && (!latestLive || (ex.createdAt||0) > (latestLive.createdAt||0))) latestLive = ex; });
     var latestLiveId = latestLive ? latestLive.examId : (liveData ? liveData.examId : null);
-    if(!list.length){ box.innerHTML = "<p class=\"mu\" style=\"font-size:14px\">এখনো কোনো পরীক্ষা আপডেট করা হয়নি।</p>"; return; }
+    if(!list.length){ box.innerHTML = "<p class=\"mu\" style=\"font-size:14px\">এখন কোনো লাইভ পরীক্ষা চলছে না। আগের পরীক্ষা দেখতে নিচে 'আমার পুরনো লাইভ রেজাল্ট' ব্যবহার করো।</p>"; return; }
     box.innerHTML = "";
-    list.forEach(function(ex, idx){
+    list.forEach(function(ex){ var idx = allList.findIndex(function(e){ return e.examId === ex.examId; }); if(idx < 0) idx = 0;
       var c = document.createElement("div"); c.className = "card";
       var isLive = liveIsLive(ex) && liveData && liveData.examId === ex.examId;
       var canStart = isLive;
@@ -816,6 +817,26 @@ function liveShowPastDetail(idx){
   });
   wrap.classList.remove("hide");
   try{ wrap.scrollIntoView(); }catch(e){}
+}
+function liveAdminDetail(eid, key){
+  if(!liveInit()) return;
+  var box = document.getElementById("liveAdminDetail"); if(!box) return; box.classList.remove("hide"); box.innerHTML = "লোড হচ্ছে…";
+  Promise.all([liveDb.ref("liveExam/history/" + eid).once("value"), liveDb.ref("results/" + eid + "/" + key).once("value")]).then(function(res){
+    var ex = res[0].val(), rec = res[1].val();
+    if(!rec){ box.innerHTML = "<p class='mu'>এই রেজাল্ট পাওয়া যায়নি।</p>"; return; }
+    var h = "<h3>" + (rec.examName || (ex && ex.name) || "পরীক্ষা") + " — বিস্তারিত</h3>";
+    h += "<p>প্রাপ্ত নম্বর: " + fm(rec.score) + "/" + BN(rec.total) + " • ✔ সঠিক " + BN(rec.correct) + " • ✘ ভুল " + BN(rec.wrong) + " • বাদ " + BN(rec.skipped) + " • শিক্ষার্থী: " + (rec.name || rec.studentId) + " (" + rec.studentId + ")</p>";
+    if(ex && ex.questions && rec.answers){
+      ex.questions.forEach(function(q,i){
+        var a = rec.answers[i], st = a < 0 ? "উত্তর দাওনি" : a === q.a ? "✔ সঠিক" : "✘ ভুল";
+        h += "<div class='card'><div><b>" + BN(i+1) + ". " + q.q + "</b></div><div class='mu' style='font-size:14px'>তোমার উত্তর: " + (a < 0 ? "দাওনি" : LET[a] + ") " + q.o[a]) + " • সঠিক উত্তর: " + LET[q.a] + ") " + q.o[q.a] + " • " + st + "</div></div>";
+      });
+    } else {
+      h += "<p class='mu'>এই পরীক্ষার প্রশ্ন ইতিহাসে সেভ করা নেই, তাই প্রশ্ন ধরে ধরে বিস্তারিত দেখানো যাচ্ছে না। সারাংশ উপরে দেওয়া আছে।</p>";
+    }
+    h += "<button class='btn alt' type='button' onclick=\"document.getElementById('liveAdminDetail').classList.add('hide')\">পেছনে</button>";
+    box.innerHTML = h; window.scrollTo(0, box.offsetTop);
+  }).catch(function(e){ box.innerHTML = "বিস্তারিত আনতে সমস্যা হয়েছে: " + e.message; });
 }
 function liveWatch(){
   if(!liveInit()) return;
@@ -1039,7 +1060,7 @@ function liveLoadAdminResults(){
       html += "<h4>সব ফলাফল</h4>" + rows.map(function(x){
         var r = x.r;
         var d = ""; try{ d = new Date(r.submittedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}); }catch(e){}
-        return "<div class='hrow'><b>" + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + (r.examName || "") + " • " + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + " • " + d + "</span><br><button class='btn alt' type='button' onclick=\"liveAdminDeleteResult('" + x.eid + "', '" + x.sid + "')\">🗑 ডিলিট</button></div>";
+        return "<div class='hrow'><b>" + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + (r.examName || "") + " • " + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + " • " + d + "</span><br><button class='btn alt' type='button' onclick=\"liveAdminDeleteResult('" + x.eid + "', '" + x.sid + "')\">🗑 ডিলিট</button> <button class='btn alt' type='button' onclick=\"liveAdminDetail('" + x.eid + "', '" + x.sid + "')\">বিস্তারিত দেখো</button></div>";
       }).join("");
     });
     box.innerHTML = html || "<p class='mu'>এখনো কোনো ফলাফল নেই।</p>";

@@ -682,17 +682,19 @@ function liveLoadExamList(){
   if(!liveInit()) return;
   liveDb.ref("liveExam/history").once("value").then(function(snap){
     var all = snap.val() || {};
-    var list = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
+    var list = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
     var box = document.getElementById("liveExamList"); if(!box) return;
     if(!list.length){ box.innerHTML = "<p class=\"mu\" style=\"font-size:14px\">এখনো কোনো পরীক্ষা আপডেট করা হয়নি।</p>"; return; }
     box.innerHTML = "";
-    list.forEach(function(ex){
+    list.forEach(function(ex, idx){
       var c = document.createElement("div"); c.className = "card";
       var isLive = liveIsLive(ex);
       var canStart = isLive && (liveData && liveData.examId === ex.examId || ex.questions);
-      var h = document.createElement("div"); h.style.fontWeight = "700"; h.textContent = (isLive ? "🔴 " : "") + (ex.name || "পরীক্ষা");
+      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLive ? "🔴 " : "") + (ex.name || "পরীক্ষা");
+      var num = document.createElement("div"); num.style.fontWeight = "700"; num.style.color = "#1a5cff"; num.textContent = BN(idx+1) + " নম্বর পরীক্ষা";
+      // number is added after the name below
       var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + (ex.endAt ? " • শেষ: " + new Date(ex.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
-      c.append(h, m);
+      c.append(h, num, m);
       if(canStart){
         var b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = "পরীক্ষা দাও";
         b.onclick = function(){ liveStartFromList(ex.examId); };

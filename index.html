@@ -284,7 +284,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 <label>পরীক্ষার নাম<input id="liveExamName" placeholder="যেমন: Lecture 8 — আন্তর্জাতিক বিষয়াবলি"></label>
 <label>ক্যাটাগরি (বিষয় / লেকচারের নাম)<input id="liveExamCategory" list="liveCatList" placeholder="যেমন: আন্তর্জাতিক বিষয়াবলি"></label>
 <datalist id="liveCatList"><option value="আন্তর্জাতিক বিষয়াবলি"></option><option value="বাংলাদেশ বিষয়াবলি"></option><option value="ইংরেজি"></option><option value="গণিত"></option><option value="Lecture 8"></option><option value="ইতিহাস"></option></datalist>
-<label>মোট সময় (মিনিট)<input id="liveExamMinutes" type="number" min="1" value="30"></label>
+<label>মোট সময় (মিনিট) — প্রশ্নের সংখ্যা অনুযায়ী স্বয়ংক্রিয়ভাবে বসবে<input id="liveExamMinutes" type="number" min="1" value="30"></label>
 <label>শুরু (তারিখ ও সময়)<input id="liveExamStart" type="datetime-local"></label>
 <label>শেষ (তারিখ ও সময়)<input id="liveExamEnd" type="datetime-local"></label>
 <label>প্রশ্ন (.txt ফরম্যাট, আগের মতোই)<textarea id="liveExamQuestions" placeholder="1. প্রশ্ন&#10;ক) অপশন&#10;খ) অপশন&#10;গ) অপশন&#10;ঘ) অপশন&#10;উত্তর: গ"></textarea></label>
@@ -684,13 +684,17 @@ function liveLoadExamList(){
     var all = snap.val() || {};
     var list = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
     var box = document.getElementById("liveExamList"); if(!box) return;
+    var latestLive = null; list.forEach(function(ex){ if(liveIsLive(ex) && (!latestLive || (ex.createdAt||0) > (latestLive.createdAt||0))) latestLive = ex; });
+    var latestLiveId = latestLive ? latestLive.examId : (liveData ? liveData.examId : null);
     if(!list.length){ box.innerHTML = "<p class=\"mu\" style=\"font-size:14px\">এখনো কোনো পরীক্ষা আপডেট করা হয়নি।</p>"; return; }
     box.innerHTML = "";
     list.forEach(function(ex, idx){
       var c = document.createElement("div"); c.className = "card";
       var isLive = liveIsLive(ex);
       var canStart = isLive && (liveData && liveData.examId === ex.examId || ex.questions);
-      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLive ? "🔴 " : "") + (ex.name || "পরীক্ষা");
+      var isLatest = (ex.examId === latestLiveId);
+      if(isLatest){ c.style.border = "2px solid #d23b4b"; c.style.background = "#fff5f6"; c.style.animation = "liveblink 1.2s infinite"; }
+      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLatest ? "🔴 LIVE — " : "") + (ex.name || "পরীক্ষা");
       var num = document.createElement("div"); num.style.fontWeight = "700"; num.style.color = "#1a5cff"; num.textContent = BN(idx+1) + " নম্বর পরীক্ষা";
       // number is added after the name below
       var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + (ex.endAt ? " • শেষ: " + new Date(ex.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
@@ -731,7 +735,7 @@ function livePublish(){
   if(!liveInit()){ document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg(); return; }
   var name = document.getElementById("liveExamName").value.trim();
   var category = document.getElementById("liveExamCategory").value.trim();
-  var minutes = parseInt(document.getElementById("liveExamMinutes").value, 10) || 30;
+  var minutes = 0; // filled after parsing: minutes = number of questions
   var startV = document.getElementById("liveExamStart").value;
   var endV = document.getElementById("liveExamEnd").value;
   var text = document.getElementById("liveExamQuestions").value;
@@ -741,12 +745,13 @@ function livePublish(){
   var parsed;
   try{ parsed = parse(text); }catch(e){ document.getElementById("liveAdminMsg").textContent = "প্রশ্ন পার্স করতে সমস্যা হয়েছে। ফরম্যাট আগের মতো আছে কিনা দেখো।"; return; }
   if(!parsed.out.length || parsed.errs.length){ document.getElementById("liveAdminMsg").textContent = parsed.errs.slice(0,5).join("\n") || "কোনো প্রশ্ন পাওয়া যায়নি।"; return; }
+  minutes = parsed.out.length; document.getElementById("liveExamMinutes").value = minutes; // যতটি MCQ, তত মিনিট
   var examId = "exam_" + Date.now();
   var data = { examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: startV ? new Date(startV).getTime() : Date.now(), endAt: endV ? new Date(endV).getTime() : Date.now() + minutes*60000, status: "live", createdAt: Date.now() };
   liveDb.ref("liveExam/current").set(data).then(function(){
     return liveDb.ref("liveExam/history/" + examId).set({ examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: data.startAt, endAt: data.endAt, createdAt: data.createdAt, status: "live" });
   }).then(function(){
-    document.getElementById("liveAdminMsg").textContent = "✅ Live হয়ে গেছে! ক্যাটাগরি: " + category + " • প্রশ্ন: " + parsed.out.length + "টি";
+    document.getElementById("liveAdminMsg").textContent = "✅ Live হয়ে গেছে! ক্যাটাগরি: " + category + " • প্রশ্ন: " + parsed.out.length + "টি • সময়: " + minutes + " মিনিট";
   }).catch(function(e){ document.getElementById("liveAdminMsg").textContent = "Live করতে সমস্যা হয়েছে: " + e.message; });
 }
 function liveStop(){

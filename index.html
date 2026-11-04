@@ -707,8 +707,8 @@ function liveLoadExamList(){
     box.innerHTML = "";
     list.forEach(function(ex, idx){
       var c = document.createElement("div"); c.className = "card";
-      var isLive = liveIsLive(ex);
-      var canStart = isLive && (liveData && liveData.examId === ex.examId || ex.questions);
+      var isLive = liveIsLive(ex) && liveData && liveData.examId === ex.examId;
+      var canStart = isLive;
       var isLatest = (ex.examId === latestLiveId);
       if(isLatest){ c.style.border = "2px solid #d23b4b"; c.style.background = "#fff5f6"; }
       var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLatest ? "LIVE — " : "") + (ex.name || "পরীক্ষা");
@@ -722,7 +722,7 @@ function liveLoadExamList(){
         b.onclick = function(){ liveStartFromList(ex.examId); };
         c.appendChild(b);
       } else {
-        var s = document.createElement("p"); s.className = "mu"; s.style.fontSize = "14px"; s.textContent = isLive ? "এই পরীক্ষাটা এখন লাইভ, কিন্তু প্রশ্ন লোড করা যাচ্ছে না।" : "এই পরীক্ষাটা এখন লাইভ নেই।";
+        var s = document.createElement("p"); s.className = "mu"; s.style.fontSize = "14px"; s.textContent = "এই পরীক্ষাটা এখন লাইভ নেই — এটা আগের পরীক্ষা।";
         c.appendChild(s);
       }
       box.appendChild(c);
@@ -844,11 +844,17 @@ function livePublish(){
   minutes = parsed.out.length; document.getElementById("liveExamMinutes").value = minutes; // যতটি MCQ, তত মিনিট
   var examId = "exam_" + Date.now();
   var data = { examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: startV ? new Date(startV).getTime() : Date.now(), endAt: endV ? new Date(endV).getTime() : Date.now() + minutes*60000, status: "live", createdAt: Date.now() };
+  var prevStop = liveDb.ref("liveExam/current").once("value").then(function(snap){
+    var prev = snap.val();
+    if(prev && prev.examId && prev.examId !== examId) return liveDb.ref("liveExam/history/" + prev.examId).update({status:"stopped"});
+  }).catch(function(){});
+  prevStop.then(function(){
   liveDb.ref("liveExam/current").set(data).then(function(){
     return liveDb.ref("liveExam/history/" + examId).set({ examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: data.startAt, endAt: data.endAt, createdAt: data.createdAt, status: "live" });
   }).then(function(){
     document.getElementById("liveAdminMsg").textContent = "✅ Live হয়ে গেছে! ক্যাটাগরি: " + category + " • প্রশ্ন: " + parsed.out.length + "টি • সময়: " + minutes + " মিনিট";
   }).catch(function(e){ document.getElementById("liveAdminMsg").textContent = "Live করতে সমস্যা হয়েছে: " + e.message; });
+  });
 }
 function liveStop(){
   if(!liveInit()){ document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg(); return; }

@@ -777,13 +777,14 @@ function liveBannerTap(){
   document.getElementById("liveStartErr").textContent = "";
   window.scrollTo(0,0);
 }
+function liveSafeId(sid){ return String(sid).replace(/[.$#\[\]\/]/g, "_"); }
 function liveStartExam(){
   var sid = document.getElementById("liveStudentId").value.trim();
   var sname = document.getElementById("liveStudentName").value.trim();
   if(!sid){ document.getElementById("liveStartErr").textContent = "তোমার আইডি লেখো।"; return; }
   if(!liveData || !liveData.examId){ document.getElementById("liveStartErr").textContent = "লাইভ পরীক্ষা পাওয়া যায়নি।"; return; }
   liveExamId = liveData.examId;
-  liveDb.ref("results/" + liveExamId + "/" + sid).once("value").then(function(snap){
+  liveDb.ref("results/" + liveExamId + "/" + liveSafeId(sid)).once("value").then(function(snap){
     if(snap.exists()){
       document.getElementById("liveStartErr").textContent = "তুমি এই পরীক্ষাটা আগেই দিয়েছো। একটা পরীক্ষা একবারই দেওয়া যাবে।";
       return;
@@ -849,7 +850,7 @@ function liveSubmit(auto){
   liveAns.forEach(function(a,i){ if(a < 0) sk++; else if(a === liveQs[i].a) ok++; else no++; });
   var score = Math.round((ok - no * 0.25) * 100) / 100;
   var rec = { studentId: liveStudent.studentId, name: liveStudent.name || "", score: score, correct: ok, wrong: no, skipped: sk, total: liveQs.length, answers: liveAns.slice(), submittedAt: Date.now(), category: liveData.category || "", examName: liveData.name || "" };
-  liveDb.ref("results/" + liveExamId + "/" + liveStudent.studentId).set(rec).then(function(){
+  liveDb.ref("results/" + liveExamId + "/" + liveSafeId(liveStudent.studentId)).set(rec).then(function(){
     liveShowResult(rec, auto);
   }).catch(function(e){ alert("ফলাফল সেভ করতে সমস্যা হয়েছে: " + e.message); liveSubmitted = false; });
 }

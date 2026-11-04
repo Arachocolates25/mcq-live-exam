@@ -1,0 +1,897 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MCQ পরীক্ষা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f8fc;--grid:#f7f8fc;--card:#fff;--tx:#18213f;--mu:#68728f;--bd:#e0e6f3;--soft:#f6f8fd;
+  --bl:#4458e0;--bl2:#6b7bf0;--blb:#eceffd;--am:#f6b93b;--amb:#fff6df;
+  --gr:#0f8a5f;--grb:#e3f6ee;--rd:#d23b4b;--rdb:#fdebed;--rc:var(--gr);
+  --hero1:#1c2a6b;--hero2:#3a4ed0;
+  --tc:var(--bl);--tcb:var(--blb);
+  --sh:0 1px 2px rgba(24,33,63,.04),0 6px 18px -12px rgba(24,33,63,.14);
+  --serif:"Inter","Noto Serif Bengali","Hind Siliguri",serif;--sans:"Inter","Hind Siliguri","Noto Sans Bengali",system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1222;--grid:#0e1222;--card:#161b30;--tx:#e8ecf8;--mu:#97a1bf;--bd:#262d47;--soft:#1b2138;--bl:#8190ff;--bl2:#a3afff;--blb:#222a52;--amb:#3a3118;--gr:#4fd6a2;--grb:#143328;--rd:#ff8d98;--rdb:#3a1c24;--hero1:#1a2358;--hero2:#2f3fa8;--sh:0 10px 26px -14px rgba(0,0,0,.6)}}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px);scroll-behavior:smooth}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;color:var(--tx);font-family:var(--sans);font-size:17px;line-height:1.6;
+  background:var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 40px}
+#exam{padding-bottom:90px}
+button{font:inherit;cursor:pointer}
+button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-offset:2px}
+.hide{display:none!important}.mu{color:var(--mu)}
+
+/* Home */
+.hero{padding:30px 4px 22px}
+.cap{width:56px;height:56px;border-radius:16px;background:var(--blb);color:var(--bl);display:grid;place-items:center}
+.cap svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hero h1{font-family:var(--serif);font-size:32px;line-height:1.25;margin:18px 0 8px}
+.hero p{margin:0;color:var(--mu);max-width:44ch}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:20px;margin-bottom:14px;box-shadow:var(--sh)}
+.card h2{font-family:var(--serif);font-size:17px;margin:0 0 14px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.steps div{background:var(--soft);border:1px solid var(--bd);border-radius:16px;padding:12px 10px;text-align:center;font-size:14px;font-weight:500;line-height:1.4}
+.steps b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--bl);color:#fff;margin:0 auto 8px;font-size:15px}
+.drop{display:flex;align-items:center;gap:14px;border:1.5px dashed var(--bl2);background:var(--soft);border-radius:16px;padding:18px 16px;cursor:pointer;transition:transform .1s,box-shadow .15s}
+.drop:hover{background:var(--blb)}.drop:active{transform:scale(.99)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop .ic{flex:none;width:52px;height:52px;border-radius:16px;background:var(--bl);color:#fff;display:grid;place-items:center}
+.drop .ic svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.drop b{display:block;font-weight:600;font-size:18px;word-break:break-all}.drop small{color:var(--mu);font-size:14px}
+.err{color:var(--rd);font-weight:500;margin-top:12px;white-space:pre-wrap;font-size:15px}.err:empty{display:none}
+.fmt{margin-top:16px;background:var(--amb);border-left:4px solid var(--am);border-radius:12px;padding:12px 14px;font-size:14.5px}
+.fmt b{display:block;margin-bottom:4px}
+.fmt pre{margin:0;font:inherit;white-space:pre-wrap;color:var(--mu);line-height:1.7}
+.btn{display:block;width:100%;background:var(--bl);color:#fff;border:0;border-radius:14px;padding:14px 18px;font-weight:600;margin-top:12px;transition:transform .1s,filter .15s}
+.btn:hover{filter:brightness(1.06)}.btn:active{transform:scale(.985)}
+.btn.alt{background:var(--card);color:var(--bl);border:1.5px solid var(--bd);box-shadow:none}
+.btn.alt:hover{border-color:var(--bl);background:var(--blb)}
+
+/* Special note */
+.note{margin:24px 0 4px;padding:16px 18px;border-radius:16px;background:var(--amb);border:1px solid var(--am);text-align:center}
+.note h3{margin:0 0 10px;font-family:var(--serif);font-size:16px}
+.note p{margin:0;font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.5}
+.note hr{border:0;height:1px;background:var(--am);opacity:.5;margin:10px auto;width:60%}
+/* Exam */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin:0 -16px 14px;padding:12px 16px 10px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--bd)}
+.cnt{display:flex;justify-content:space-between;font-size:14px;color:var(--mu);margin-bottom:8px;font-weight:500}.cnt span:first-child{color:var(--tx);font-weight:600}
+.bar{height:8px;background:var(--bd);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--bl);border-radius:8px;transition:width .35s cubic-bezier(.3,.8,.3,1)}
+.pal{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}.pal::-webkit-scrollbar{display:none}
+.pal button{flex:none;min-width:34px;height:34px;padding:0 6px;border-radius:10px;border:1.5px solid var(--bd);background:var(--card);color:var(--mu);font-size:14px;font-weight:600;transition:all .15s}
+.pal button.d{background:var(--bl);border-color:var(--bl);color:#fff}
+.qc{padding:20px 18px 16px}
+.q{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.65}
+.q .n{flex:none;min-width:36px;height:36px;padding:0 8px;border-radius:11px;background:var(--blb);color:var(--bl);display:grid;place-items:center;font-family:var(--sans);font-size:15px;font-weight:700}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1.5px solid var(--bd);border-radius:14px;padding:12px 14px;margin-top:10px;transition:border-color .15s,background .15s,transform .1s}
+.opt:not([disabled]):hover{border-color:var(--bl2);background:var(--soft)}.opt:not([disabled]):active{transform:scale(.99)}
+.opt .k{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bd);background:var(--soft);display:grid;place-items:center;font-size:15px;font-weight:600;color:var(--mu);transition:all .15s}
+.opt.sel{border-color:var(--bl);background:var(--blb);box-shadow:0 0 0 3px color-mix(in srgb,var(--bl) 14%,transparent)}
+.opt.sel .k{background:var(--bl);border-color:var(--bl);color:#fff}
+.opt.ok{border-color:var(--gr);background:var(--grb)}.opt.ok .k{background:var(--gr);border-color:var(--gr);color:#fff}
+.opt.no{border-color:var(--rd);background:var(--rdb)}.opt.no .k{background:var(--rd);border-color:var(--rd);color:#fff}
+.opt[disabled]{cursor:default;opacity:1}
+.sub{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--bd)}
+.sub .btn{max-width:688px;margin:0 auto}
+
+/* Result */
+.score{text-align:center;padding:26px 20px;border-color:var(--tc);background:linear-gradient(var(--tcb),var(--card) 70%)}
+.ring{--p:0;width:168px;height:168px;border-radius:50%;margin:4px auto 16px;display:grid;place-items:center;background:conic-gradient(var(--tc) calc(var(--p)*1%),var(--bd) 0)}
+.ring>div{width:138px;height:138px;border-radius:50%;background:var(--card);display:grid;place-content:center}
+.big{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1.1;margin:0;color:var(--tc)}.frac{font-size:14px;color:var(--mu)}
+#grade{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:2px;color:var(--tc)}#msg{font-size:15px}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--bd);border-radius:14px;margin-bottom:16px}
+.tabs button{flex:1;padding:10px 4px;border-radius:10px;border:0;background:transparent;color:var(--mu);font-weight:600;transition:all .15s}
+.tabs button.on{background:var(--bl);color:#fff}
+.tag{display:inline-block;font-size:14px;margin-top:12px;font-weight:600;padding:6px 12px;border-radius:999px}
+.tag.ok{background:var(--grb);color:var(--gr)}.tag.wrong{background:var(--rdb);color:var(--rd)}.tag.skip{background:var(--soft);color:var(--mu);border:1px solid var(--bd)}
+.rt{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:12px}
+.ht{font-family:var(--serif);font-size:28px;line-height:1.3;margin:22px 0 6px}
+.rule{font-size:14px;color:var(--mu);margin:0 0 18px}
+.t-red{--tc:#e5384c;--tcb:#fdecee}
+.t-blue{--tc:var(--bl);--tcb:var(--blb)}
+.t-green{--tc:#0fc05a;--tcb:#e2fbec}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .t-red{--tc:#ff7a89;--tcb:#3a1c24}:root:not([data-theme="light"]) .t-green{--tc:#3ee08a;--tcb:#12331f}}
+.back{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 14px 6px 8px;font-weight:600;font-size:15px}
+.back svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bk{padding:6px 0 4px}
+.lec{margin-bottom:30px}
+.lh{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:var(--sh)}
+.lh>div{min-width:0;flex:1}
+.lt{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.4;word-break:break-all}
+.lm{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lm span{font-size:12.5px;color:var(--mu);background:var(--soft);border:1px solid var(--bd);border-radius:999px;padding:2px 10px}
+.lm b{color:var(--tx);font-weight:600}
+.btn.gbtn{width:auto;flex:none;margin:0;padding:9px 14px;font-size:15px;background:var(--card);color:var(--bl);border:1.5px solid var(--bl);box-shadow:none}
+.btn.gbtn:hover{background:var(--blb)}
+.sheet{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--tc);border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:var(--sh)}
+.sh{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:var(--tcb)}
+.sn{font-family:var(--serif);font-weight:700;font-size:17px;line-height:1.35}
+.sd{font-size:12.5px;color:var(--mu)}
+.pill{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--card);color:var(--tc);border:1px solid var(--tc);white-space:nowrap}
+.cells{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
+.cells>div{background:var(--card);padding:10px 6px;text-align:center}
+.cells small{display:block;font-size:13px;color:var(--mu);line-height:1.3;margin-bottom:3px}
+.cells b{font-size:20px;font-weight:700;line-height:1.2}
+.cells em{font-style:normal;font-size:12px;color:var(--mu);margin-left:2px}
+.cells .k b{color:var(--tc)}.cells .g b{color:var(--gr)}.cells .r b{color:var(--rd)}
+.score .cells{margin-top:18px;border:1px solid var(--bd);border-radius:14px;overflow:hidden;text-align:center}
+.ov{margin-bottom:22px;border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+
+/* History compact */
+.lec2{background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--tc);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh)}
+.lh2{display:flex;align-items:center;gap:10px;padding:12px 12px 10px;background:var(--tcb)}
+.lt2{flex:1;min-width:0}
+.ln{font-family:var(--serif);font-weight:700;font-size:17px;line-height:1.35;word-break:break-word}
+.lm2{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:4px;font-size:14.5px;font-weight:500;color:var(--mu)}
+.acts{display:flex;gap:6px;flex:none}
+.ib{border:1.5px solid var(--bl);background:var(--card);color:var(--bl);border-radius:10px;height:36px;padding:0 12px;font-weight:600;font-size:14px;display:grid;place-items:center}
+.ib.del{width:36px;padding:0;border-color:var(--rd);color:var(--rd)}
+.ib.del svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ar{display:flex;align-items:center;gap:10px;padding:9px 10px 9px 12px;border-top:1px solid var(--bd)}
+.an{flex:none;width:30px;height:30px;border-radius:50%;background:var(--tcb);color:var(--tc);display:grid;place-items:center;font-size:15px;font-weight:700}
+.am{flex:1;min-width:0}
+.at{display:flex;justify-content:space-between;align-items:baseline}
+.as{font-size:20px;font-weight:700;color:var(--tc)}.as em{font-style:normal;font-size:14px;color:var(--mu);font-family:var(--sans);font-weight:400}
+.ad{font-size:14px;font-weight:500;color:var(--mu)}
+.ab{height:6px;border-radius:6px;background:var(--bd);margin:5px 0 7px;overflow:hidden}.ab i{display:block;height:100%;background:var(--tc);border-radius:5px}
+.astat{display:flex;flex-wrap:wrap;gap:6px}.astat span{font-size:14px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--soft);line-height:1.5}.astat .g{background:var(--grb)}.astat .r{background:var(--rdb)}.astat .s{border:1px solid var(--bd)}.astat .g{color:var(--gr)}.astat .r{color:var(--rd)}.astat .s{color:var(--mu)}
+.xb{flex:none;width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:var(--mu);font-size:15px}.xb:hover{background:var(--rdb);color:var(--rd)}
+
+.bkp{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:16px;box-shadow:var(--sh)}
+.bkp .row{display:flex;gap:8px}
+.bkp .btn{margin:0;padding:10px 8px;font-size:15px}
+.bkp .st{font-size:14px;color:var(--mu);margin:0 0 10px;font-weight:500}
+.bkp .warn{background:var(--amb);border-left:4px solid var(--am);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;margin-bottom:10px}
+.bkp .warn:empty{display:none}
+.ar{padding:6px 10px;gap:8px;cursor:pointer}.ar:active{background:var(--soft)}.an{width:24px;height:24px;font-size:13px}
+.rw{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 10px}.rw b{font-size:16px;color:var(--tc)}.rw span{font-size:13px;font-weight:500;color:var(--mu)}.rw .g{color:var(--gr)}.rw .r{color:var(--rd)}
+.q>span:nth-child(2){flex:1}.star{flex:none;border:0;background:none;font-size:24px;line-height:1;color:var(--am);padding:0 2px}
+.srow{display:flex;gap:8px;margin-bottom:12px}.srow input,.srow select{min-width:0;padding:10px 12px;border:1.5px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit;font-size:15px}.srow input{flex:1}
+.mb{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--bd);font-size:15px}.mb i{flex:none;font-style:normal;font-weight:700;color:var(--rd)}.mb small{display:block;color:var(--mu)}
+#tot{display:none}.row2{display:flex;gap:10px;margin-bottom:14px}.row2>.btn{flex:1;margin:0;padding:12px 8px;font-size:15px}
+.fmt2{margin-top:14px}.fmt2 summary{cursor:pointer;color:var(--bl);font-weight:600;font-size:15px}
+.gcard{background:var(--card);border:1px solid var(--bd);border-radius:16px;margin-bottom:16px;overflow:hidden;box-shadow:var(--sh)}
+.gh{display:flex;align-items:flex-start;gap:10px;padding:12px;background:var(--tcb);border-left:5px solid var(--tc)}.gt{flex:1;min-width:0}
+.gn{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.35;word-break:break-word}
+.gm{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.gm span{font-size:13px;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--card);border:1px solid var(--bd);color:var(--mu)}
+.gm .hl{background:var(--bl);border-color:var(--bl);color:#fff}.gm .cr{background:var(--amb);border-color:var(--am);color:var(--tx)}
+.ar2{padding:9px 12px;border-top:1px solid var(--bd);border-left:5px solid transparent;cursor:pointer}.ar2:active{background:var(--soft)}.ar2.cor{background:var(--amb);border-left-color:var(--am)}
+.a1{display:flex;align-items:center;gap:8px}.chip{font-size:12.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--blb);color:var(--bl);white-space:nowrap}.chip.c2{background:var(--card);color:var(--tx);border:1px solid var(--am)}
+.sc{font-size:20px;color:var(--tc)}.sc em{font-style:normal;font-size:13px;color:var(--mu);font-weight:500}.pc{font-size:13px;color:var(--mu);font-weight:600}
+.df{font-size:12.5px;font-weight:700}.df.up{color:var(--gr)}.df.dn{color:var(--rd)}.a1 .xb{margin-left:auto}
+.a2{display:flex;flex-wrap:wrap;gap:2px 12px;margin-top:3px;font-size:13.5px;color:var(--mu);font-weight:500}.a2 .g{color:var(--gr)}.a2 .r{color:var(--rd)}
+.bkp{padding:10px;margin:22px 0 0;box-shadow:none}.bkp .bkt{display:block;font-size:14px;color:var(--mu);margin-bottom:6px}.bkp .btn{padding:9px 8px;font-size:14px}
+.sbar{background:var(--card);border:1.5px solid var(--bd);border-radius:18px;padding:12px;margin-bottom:14px;box-shadow:var(--sh)}
+.sb1{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sbt{font-family:var(--serif);font-weight:700;font-size:21px}.sbc{font-size:13px;font-weight:600;background:var(--blb);color:var(--bl);border-radius:999px;padding:2px 10px}
+.sb2{display:flex;gap:8px}.sb2 input,.sb2 select{min-width:0;padding:10px 12px;border:1.5px solid var(--bd);border-radius:12px;background:var(--soft);color:var(--tx);font:inherit;font-size:15px}.sb2 input{flex:1}
+.gh{align-items:center;cursor:pointer;padding:10px 12px}.gh:active{filter:brightness(.97)}
+.gi{flex:none;width:30px;height:30px;border-radius:50%;background:var(--tc);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px}
+.gn{font-size:17px}.gm{gap:3px 10px;margin-top:4px}.gm span{padding:0;border:0;background:none;border-radius:0;font-size:13.5px}.gm .g{color:var(--gr)}.gm .r{color:var(--rd)}
+.gm .hl,.gm .cr{padding:0 9px;border-radius:999px}.gm .hl{background:var(--bl);color:#fff}.gm .cr{background:var(--amb);border:1px solid var(--am);color:var(--tx)}
+.cv{flex:none;color:var(--mu);font-size:18px}.gb{border-top:1px solid var(--bd)}
+.gact{display:flex;gap:8px;padding:10px 12px}.gact .ib{flex:1;display:inline-flex;gap:6px;align-items:center;justify-content:center;width:auto;padding:0 12px}.gact .ib.del svg{width:16px;height:16px}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:#18213f;color:#fff;padding:12px 14px;border-radius:14px;font-size:14.5px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.bkp{margin:14px 0 0;padding:12px}.row2>.btn{font-size:14px;padding:12px 4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.mk-g,.cells .mk-g b{color:#00b52e!important}
+.mk-b,.cells .mk-b b{color:#1f3fff!important}
+.mk-r,.cells .mk-r b{color:#e00018!important}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .mk-g,:root:not([data-theme="light"]) .cells .mk-g b{color:#00e65c!important}:root:not([data-theme="light"]) .mk-b,:root:not([data-theme="light"]) .cells .mk-b b{color:#4d7dff!important}:root:not([data-theme="light"]) .mk-r,:root:not([data-theme="light"]) .cells .mk-r b{color:#ff2d42!important}}
+/* ===== LIVE EXAM additions (old design untouched) ===== */
+@keyframes liveblink{0%,100%{opacity:1}50%{opacity:.35}}
+#liveBanner{display:none;position:sticky;top:0;z-index:60;background:#d23b4b;color:#fff;text-align:center;padding:12px 10px;font-weight:700;cursor:pointer}
+#liveBanner.on{display:block;animation:liveblink 1.2s infinite}
+#liveBanner .cat{font-size:13px}
+#liveBanner .cat b{display:inline-block;background:#fff;color:#d23b4b;border-radius:999px;padding:2px 12px;margin-left:6px}
+.catChip{display:inline-block;background:var(--blb);color:var(--bl);border:1px solid var(--bl);border-radius:999px;padding:3px 13px;font-size:14px;font-weight:700}
+.liveTimer{font-size:22px;font-weight:700;text-align:center;color:var(--rd)}
+#liveAdmin input,#liveAdmin textarea,#liveAdmin select{width:100%;padding:11px 12px;border:1.5px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit;font-size:15px;margin:6px 0}
+#liveAdmin textarea{min-height:180px}
+#liveHomeCard .catChip{margin:6px 0}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head><body><div id="liveBanner" onclick="liveBannerTap()"><span id="liveBannerText">🔴 LIVE EXAM</span> <span class="cat" id="liveBannerCat"></span></div><div class="wrap">
+
+<section id="home">
+<div class="hero">
+  <div class="cap"><svg viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5"/><path d="M22 9v6"/></svg></div>
+  <h1>MCQ পরীক্ষা</h1>
+  <p>নিজের প্রস্তুতি যাচাই করো, আর ভুলগুলো থেকে শিখে নাও।</p>
+</div>
+<div class="card">
+  <h2>কীভাবে কাজ করে</h2>
+  <div class="steps"><div><b>1</b>ফাইল দাও</div><div><b>2</b>উত্তর দাও</div><div><b>3</b>ফলাফল দেখো</div></div>
+</div>
+<div class="card">
+  <h2>প্রশ্নের ফাইল (.txt)</h2>
+  <label class="drop"><input type="file" id="file" accept=".txt,text/plain">
+    <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
+    <span><b id="fname">ফাইল বেছে নাও</b><small>ফাইল দিলেই পরীক্ষা শুরু হবে</small></span></label>
+  <div class="err" id="err"></div>
+  <details class="fmt2"><summary>ফরম্যাট ও নম্বরের নিয়ম দেখো</summary><div class="fmt"><b>ফাইলের ফরম্যাট</b><pre>1. প্রশ্ন
+ক) অপশন
+খ) অপশন
+গ) অপশন
+ঘ) অপশন
+উত্তর: গ
+
+উত্তর নিচে আলাদা থাকলে: শেষে "উত্তরমালা" লিখে
+১. গ
+২. ক ... এভাবে</pre></div>
+  <div class="fmt"><b>নম্বর কীভাবে হবে</b>প্রতিটি সঠিক উত্তরে 1 নম্বর। প্রতিটি ভুলে 0.25 কাটা যাবে, অর্থাৎ 4টা ভুলে 1 নম্বর। উত্তর না দিলে কিছু কাটা যাবে না।</div></details>
+</div>
+<div class="row2"><button class="btn alt" id="histBtn">📋 ফলাফল</button><button class="btn alt" id="xBtn">📊 সুবিধা</button><button class="btn alt" id="bkBtn">💾 ব্যাকআপ</button></div>
+<div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div>
+<div class="row2"><button class="btn alt" type="button" onclick="liveShowAdmin()">🔐 অ্যাডমিন</button></div>
+<div class="card hide" id="resume"><h2>আগের পরীক্ষা অসম্পূর্ণ আছে</h2><button class="btn alt" id="resumeBtn" style="margin-top:0">চালিয়ে যাও</button></div>
+</section>
+
+<section id="exam" class="hide">
+<div class="top"><div class="cnt"><button class="back" type="button"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>পেছনে</button><span id="tm"></span><span id="done"></span><span id="tot"></span></div><div class="bar"><i id="pb"></i></div><div class="pal" id="pal"></div></div>
+<div id="list"></div>
+<div class="sub"><button class="btn" id="submit" style="margin:0">জমা দাও</button></div>
+</section>
+
+<section id="res" class="hide">
+<div class="bk"><button class="back" type="button"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>পেছনে</button></div>
+<div class="card score" id="sc"><div class="rt" id="rtitle"></div><div class="ring" id="ring"><div><p class="big" id="pct"></p><span class="frac" id="frac"></span></div></div>
+<div id="grade"></div><div id="msg" class="mu"></div>
+<div id="msheet"></div></div>
+<button class="btn" id="redo">✏️ শুধু ভুল ও বাদ পড়াগুলো আবার দাও</button>
+<div class="row2" style="margin-top:10px"><button class="btn alt" id="again">🔁 সব প্রশ্নে আবার</button><button class="btn alt" id="histBtn2">📋 ফলাফল তালিকা</button></div>
+<button class="btn alt" id="home2" style="margin:0 0 18px">নতুন প্রশ্ন দাও</button>
+<div class="tabs"><button data-f="all" class="on">সব</button><button data-f="ok">সঠিক</button><button data-f="wrong">ভুল</button><button data-f="skip">বাদ</button></div>
+<div id="rlist"></div>
+</section>
+
+<section id="hist" class="hide">
+<div class="bk"><button class="back" type="button"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>পেছনে</button></div>
+<div class="sbar"><div class="sb1"><span class="sbt">📋 আমার পরীক্ষাগুলো</span><span class="sbc" id="hcount"></span></div><div class="sb2"><input id="hq" type="search" placeholder="🔍 নাম দিয়ে খোঁজো"><select id="hs"><option value="new">নতুন আগে</option><option value="old">পুরোনো আগে</option><option value="best">সেরা স্কোর</option></select></div></div>
+<p class="rule">সঠিক উত্তরে +1, ভুল উত্তরে −0.25 (4টা ভুলে 1 নম্বর কাটা)</p>
+<div class="ov cells hide" id="hover"></div>
+<div id="hlist"></div>
+<button class="btn alt" id="xBtn2">অতিরিক্ত সুবিধা</button>
+<button class="btn alt" id="bkBtn2">💾 ব্যাকআপ (ডাউনলোড / আপলোড)</button>
+<button class="btn" id="hback">নতুন পরীক্ষা দাও</button>
+
+</section>
+
+<section id="xtra" class="hide"><div class="bk"><button class="back" type="button"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>পেছনে</button></div><h1 class="ht">অতিরিক্ত সুবিধা</h1><div id="xbody"></div></section>
+<section id="bkpg" class="hide"><div class="bk"><button class="back" type="button"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>পেছনে</button></div><h1 class="ht">ব্যাকআপ</h1>
+<div class="card"><h2>ফাইল কোথায় পাবেন</h2><p class="mu" style="margin:0;font-size:15.5px">ফাইলের নাম <b style="color:var(--tx)">mcq-backup.json</b>। এটা ফোনের <b style="color:var(--tx)">Downloads</b> ফোল্ডারে জমা হয়।<br><br>খুঁজবেন এভাবে:<br>১. ফোনের <b style="color:var(--tx)">Files</b> অ্যাপ → <b style="color:var(--tx)">Downloads</b><br>২. অথবা Chrome-এর ⋮ মেনু → <b style="color:var(--tx)">Downloads</b><br><br>একই নামে আবার নামালে নামের পরে (1), (2) বসে। ফিরিয়ে আনতে সবচেয়ে নতুনটা (শেষের সংখ্যা সবচেয়ে বড়, বা সবচেয়ে নতুন তারিখ) বাছবেন।</p></div>
+<div class="bkp"><div class="warn" id="bkwarn"></div><p class="st" id="bkst"></p>
+<div class="row"><button class="btn" id="bkout" type="button">ব্যাকআপ নাও</button>
+<label class="btn alt" style="text-align:center;cursor:pointer"><input type="file" id="bkin" accept=".json,application/json" style="display:none">ব্যাকআপ ফিরিয়ে আনো</label></div></div>
+<button class="btn alt" id="bkshare" type="button" style="margin-top:12px">📤 Drive / WhatsApp-এ পাঠাও</button>
+<p class="mu" style="font-size:14px;margin:8px 2px 0">পরীক্ষা জমা দিলে ব্যাকআপ নিজে থেকেই নামে। ফোন রিসেট বা হারালে Downloads-ও যায়, তাই মাঝে মাঝে Drive-এ রেখে দিন।</p></section>
+<section id="liveAdmin" class="hide">
+<div class="bk"><button class="back" type="button" onclick="liveBackHome()">◀ পেছনে</button></div>
+<h1 class="ht">অ্যাডমিন — Live Exam</h1>
+<div class="card" id="liveAdminLogin">
+<h2>অ্যাডমিন পাসওয়ার্ড</h2>
+<p class="mu" style="font-size:14px">এই পাসওয়ার্ড শুধু ক্লাসের গেট হিসেবে কাজ করে। পেজের সোর্স দেখলে যে কেউ এটা দেখতে পারবে, তাই এটা ব্যাংকের মতো নিরাপত্তা নয়।</p>
+<input type="password" id="liveAdminPass" placeholder="অ্যাডমিন পাসওয়ার্ড">
+<button class="btn" type="button" onclick="liveAdminLogin()">লগইন</button>
+<p class="err" id="liveAdminErr"></p>
+</div>
+<div class="card hide" id="liveAdminForm">
+<h2>লাইভ পরীক্ষা বানাও</h2>
+<label>পরীক্ষার নাম<input id="liveExamName" placeholder="যেমন: Lecture 8 — আন্তর্জাতিক বিষয়াবলি"></label>
+<label>ক্যাটাগরি (বিষয় / লেকচারের নাম)<input id="liveExamCategory" list="liveCatList" placeholder="যেমন: আন্তর্জাতিক বিষয়াবলি"></label>
+<datalist id="liveCatList"><option value="আন্তর্জাতিক বিষয়াবলি"></option><option value="বাংলাদেশ বিষয়াবলি"></option><option value="ইংরেজি"></option><option value="গণিত"></option><option value="Lecture 8"></option><option value="ইতিহাস"></option></datalist>
+<label>মোট সময় (মিনিট)<input id="liveExamMinutes" type="number" min="1" value="30"></label>
+<label>শুরু (তারিখ ও সময়)<input id="liveExamStart" type="datetime-local"></label>
+<label>শেষ (তারিখ ও সময়)<input id="liveExamEnd" type="datetime-local"></label>
+<label>প্রশ্ন (.txt ফরম্যাট, আগের মতোই)<textarea id="liveExamQuestions" placeholder="1. প্রশ্ন&#10;ক) অপশন&#10;খ) অপশন&#10;গ) অপশন&#10;ঘ) অপশন&#10;উত্তর: গ"></textarea></label>
+<label>অথবা .txt ফাইল আপলোড করো<input type="file" id="liveExamFile" accept=".txt,text/plain"></label>
+<p class="err" id="liveAdminMsg"></p>
+<button class="btn" type="button" onclick="livePublish()">🔴 Live করো</button>
+<button class="btn alt" type="button" onclick="liveStop()">⏹ বন্ধ করো</button>
+<button class="btn alt" type="button" onclick="liveLoadAdminResults()">📋 ফলাফল ও লিডারবোর্ড দেখো</button>
+</div>
+<div class="card hide" id="liveAdminResults"><h2>ফলাফল ও লিডারবোর্ড</h2><div id="liveAdminResultsBody"></div></div>
+</section>
+
+<section id="liveExam" class="hide">
+<div class="bk"><button class="back" type="button" onclick="liveBackHome()">◀ পেছনে</button></div>
+<div id="liveStart">
+<h1 class="ht" id="liveStartName"></h1>
+<div id="liveStartCat"></div>
+<p class="mu" id="liveStartMeta" style="font-size:15px"></p>
+<input id="liveStudentId" placeholder="তোমার আইডি (আবশ্যক)" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0">
+<input id="liveStudentName" placeholder="তোমার নাম (ঐচ্ছিক)" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0">
+<button class="btn" type="button" onclick="liveStartExam()">পরীক্ষা শুরু করো</button>
+<p class="err" id="liveStartErr"></p>
+</div>
+<div id="liveRun" class="hide">
+<div class="card"><div class="liveTimer" id="liveTimer"></div><div class="cnt" style="display:flex;justify-content:space-between;font-size:14px;color:var(--mu)"><span id="liveDone"></span><span id="liveTotal"></span></div><div class="bar"><i id="liveBar" style="width:0"></i></div></div>
+<div id="liveList"></div>
+<button class="btn" type="button" onclick="liveSubmit(false)">জমা দাও</button>
+</div>
+<div id="liveResult" class="hide">
+<div class="card score"><h2 id="liveResTitle"></h2><p style="font-size:36px;font-weight:700;margin:6px 0" id="liveResScore"></p><div id="liveResCells"></div><p class="small" id="liveResNote"></p></div>
+<div id="liveResList"></div>
+<div class="card hide" id="liveLeaderCard"><h2>🏆 লিডারবোর্ড</h2><div id="liveLeaderBody"></div></div>
+<button class="btn alt" type="button" onclick="liveShowLeaderboard()">🏆 লিডারবোর্ড দেখো</button>
+<button class="btn alt" type="button" onclick="liveBackHome()">হোমে ফিরে যাও</button>
+</div>
+</section>
+<div class="toast hide" id="toast"></div>
+</div>
+<script>
+const LET=["ক","খ","গ","ঘ"],$=id=>document.getElementById(id);
+let Qs=[],ans=[],rawText="",examName="",KEY="mcq_exam_v1";
+const BN=n=>String(n);
+const EN=t=>String(t).replace(/[০-৯]/g,d=>"০১২৩৪৫৬৭৮৯".indexOf(d));
+const ENG={a:0,b:1,c:2,d:3};
+const HK="mcq_hist_v1",NEG=0.25;let hist=[];
+try{hist=JSON.parse(localStorage.getItem(HK)||"[]")}catch(e){}
+const ordn=n=>"পরীক্ষা "+n;
+const fm=x=>(x<0?"−":"")+BN(Math.round(Math.abs(x)*100)/100);
+const neg=x=>x>0?"−"+fm(x):fm(0);
+const SK="mcq_sets_v1";let sets={};
+try{sets=JSON.parse(localStorage.getItem(SK)||"{}")}catch(e){}
+function ssave(){try{localStorage.setItem(SK,JSON.stringify(sets))}catch(e){}}
+function hash(t){t=t.replace(/\s+/g," ").trim();let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return"s"+(h>>>0).toString(36)+t.length}
+function hsave(){try{localStorage.setItem(HK,JSON.stringify(hist))}catch(e){}}
+function refreshHome(){}
+const theme=p=>p>70?"t-green":p<35?"t-red":"t-blue";
+const mc=p=>p>=70?"mk-g":p>=50?"mk-b":"mk-r";
+let idx=0;
+function refreshResume(){let st=null;try{st=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
+  const ok=!!(st&&st.t&&st.a&&st.a.some(x=>x>=0));$("resume").classList.toggle("hide",!ok);
+  if(ok)$("resumeBtn").onclick=()=>start(st.t,st.a,st.nm)}
+function li(ch){ch=ch.toLowerCase();return LET.indexOf(ch)>=0?LET.indexOf(ch):(ch in ENG?ENG[ch]:-1)}
+function parse(t){
+  const ls=t.split(/\r?\n/),ki=ls.findIndex(l=>/^[\s=\-*#]*(উত্তরমালা|উত্তরপত্র|answer\s*key)[\s=\-*#:]*$/i.test(l.trim())),key={};
+  if(ki>=0){ls.slice(ki+1).forEach(l=>{const m=EN(l.trim()).match(/^(\d+)\s*[.)।:\-]?\s*[(]?([কখগঘa-dA-D])/i);if(m)key[+m[1]]=li(m[2])});t=ls.slice(0,ki).join("\n")}
+  const out=[];let cur=null,last=null;const errs=[];
+  for(let line of t.split(/\r?\n/)){
+    line=line.trim();if(!line)continue;
+    let m;
+    if((m=line.match(/^(?:উত্তর|ans(?:wer)?)\s*[:：\-]\s*[(]?([কখগঘa-dA-D])[)]?/i))&&cur){cur.a=li(m[1]);last=null;continue}
+    if((m=line.match(/^[(]?([কখগঘ]|[a-dA-D])[).]\s*(.+)/))&&cur&&cur.o.length<4&&li(m[1])===cur.o.length){cur.o.push(EN(m[2]));last=cur.o;continue}
+    if((m=line.match(/^[0-9০-৯]+\s*[.)।]\s*(.+)/))){cur={q:EN(m[1]),o:[],a:-1};out.push(cur);last=null;continue}
+    if(cur){if(last)last[last.length-1]+=" "+EN(line);else cur.q+=" "+EN(line)}
+  }
+  out.forEach((q,i)=>{if(q.a<0&&key[i+1]!==undefined)q.a=key[i+1]});
+  out.forEach((q,i)=>{if(q.o.length!==4||q.a<0)errs.push(BN(i+1)+" নম্বর প্রশ্নে চারটা অপশন বা উত্তর পাওয়া যায়নি")});
+  return{out,errs};
+}
+function start(text,keep,nm){
+  nm=EN(nm||"");
+  const r=parse(text);
+  if(!r.out.length){$("err").textContent="কোনো প্রশ্ন পাওয়া যায়নি। ফরম্যাট ঠিক আছে কিনা দেখো।";return}
+  if(r.errs.length){$("err").textContent=r.errs.slice(0,5).join("\n");return}
+  const sidN=hash(text),keyN=(nm||"").trim().toLowerCase();
+  if(keyN){const clash=Object.keys(sets).find(k=>k!==sidN&&(sets[k].nm||"").trim().toLowerCase()===keyN);
+    if(clash){$("err").textContent="“"+nm+"” লেকচারে আগে অন্য প্রশ্নে পরীক্ষা দিয়েছ, তাই আলাদা প্রশ্ন দেওয়া যাবে না।\nআগের প্রশ্নে আবার পরীক্ষা দিতে ফলাফলের তালিকা থেকে “আবার পরীক্ষা দিন” চাপো। নতুন প্রশ্ন হলে ফাইলের নাম বদলে দাও।";return}}
+  $("err").textContent="";curPar=nextPar;examName=nm||"";Qs=r.out;rawText=text;ans=(keep&&keep.length===Qs.length)?keep:Qs.map(()=>-1);
+  show("exam","push");build();upd();
+}
+function show(id,mode){
+  ["home","exam","res","hist","xtra","bkpg"].forEach(x=>$(x).classList.toggle("hide",x!==id));
+  $("foot").classList.toggle("hide",id!=="home");
+  if(id==="exam"&&mode!=="pop")t0=Date.now();
+  if(id==="home")refreshResume();
+  try{if(mode==="push"){idx++;history.pushState({v:id,i:idx},"")}else if(mode==="replace"){history.replaceState({v:id,i:idx},"")}}catch(e){}
+  window.scrollTo(0,0)}
+function goHome(){if(idx>0)history.go(-idx);else show("home","pop")}
+function qhead(i,q){
+  const h=document.createElement("div");h.className="q";
+  const n=document.createElement("span");n.className="n";n.textContent=BN(i+1);
+  const t=document.createElement("span");t.textContent=q.q;const s=el("button","star",bm[hash(q.q)]?"★":"☆");s.type="button";s.setAttribute("aria-label","বুকমার্ক");s.onclick=e=>{e.stopPropagation();toggleBm(q,s)};h.append(n,t,s);return h;
+}
+function build(){
+  const box=$("list");box.textContent="";const pal=$("pal");pal.textContent="";
+  Qs.forEach((q,i)=>{
+    const c=document.createElement("div");c.className="card qc";c.id="q"+i;c.appendChild(qhead(i,q));
+    q.o.forEach((o,j)=>{
+      const b=document.createElement("button");b.className="opt";b.dataset.i=i;b.dataset.j=j;
+      const k=document.createElement("span");k.className="k";const s=document.createElement("span");s.textContent=o;
+      b.append(k,s);b.onclick=()=>{ans[i]=ans[i]===j?-1:j;paint(i);upd();save()};c.appendChild(b)});
+    box.appendChild(c);paint(i);
+    const p=document.createElement("button");p.id="p"+i;p.textContent=BN(i+1);p.setAttribute("aria-label",BN(i+1)+" নম্বর প্রশ্নে যাও");
+    p.onclick=()=>$("q"+i).scrollIntoView();pal.appendChild(p)});
+}
+function paint(i){
+  document.querySelectorAll('#list .opt[data-i="'+i+'"]').forEach(b=>{
+    const on=ans[i]===+b.dataset.j;b.classList.toggle("sel",on);b.firstChild.textContent=on?"✔":LET[+b.dataset.j]});
+}
+function upd(){const d=ans.filter(x=>x>=0).length;$("done").textContent="উত্তর "+BN(d)+"/"+BN(Qs.length);$("pb").style.width=(d/Qs.length*100)+"%";
+  ans.forEach((a,i)=>{const p=$("p"+i);if(p)p.classList.toggle("d",a>=0)})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({t:rawText,a:ans,nm:examName}))}catch(e){}}
+function result(){
+  let ok=0,no=0,sk=0;ans.forEach((a,i)=>{a<0?sk++:a===Qs[i].a?ok++:no++});
+  const total=Qs.length,score=ok-no*NEG,p=Math.max(0,score/total*100),sid=hash(rawText);
+  if(!sets[sid]){sets[sid]={nm:examName,t:rawText};if(curPar){sets[sid].par=curPar.sid;sets[sid].pnm=curPar.nm}}else if(!sets[sid].nm&&examName)sets[sid].nm=examName;ssave();
+  const n=hist.filter(h=>h.sid===sid).length+1;
+  const rec={n,sid,t:Date.now(),nm:examName,ok,no,sk,total,score,ans:ans.slice(),sec:Math.round((Date.now()-t0)/1000)};hist.push(rec);hsave();refreshHome();
+  fillRes(rec);show("res","replace");render("all");setTab("all");doBackup();
+  try{localStorage.removeItem(KEY)}catch(e){}
+}
+function cellsEl(h){
+  const pr=h.score/h.total*100,got=Math.max(0,Math.round(pr*10)/10),miss=Math.round((100-got)*10)/10;
+  const g=document.createElement("div");g.className="cells";
+  [["প্রাপ্ত নম্বর",fm(h.score),"/ "+BN(h.total),"k "+mc(pr)],["মার্ক পেয়েছি",fm(got)+"%","","k "+mc(pr)],["মার্ক পাইনি",fm(miss)+"%","",""],
+   ["উত্তর দিয়েছি",BN(h.ok+h.no),"টা",""],["উত্তর দিইনি",BN(h.sk),"টা",""],["মোট প্রশ্ন",BN(h.total),"টা",""],
+   ["সঠিক",BN(h.ok),"টা","g"],["ভুল",BN(h.no),"টা",h.no?"r":""],["নেগেটিভ কাটা",neg(h.no*NEG),"",h.no?"r":""]].forEach(x=>{
+    const c=document.createElement("div");if(x[3])c.className=x[3];
+    const l=document.createElement("small");l.textContent=x[0];const v=document.createElement("b");v.textContent=x[1];
+    c.append(l,v);if(x[2]){const e=document.createElement("em");e.textContent=x[2];c.appendChild(e)}g.appendChild(c)});
+  return g;
+}
+function delSet(k){
+  const arr=hist.filter(h=>rid(h)===k),nm=(sets[k]&&sets[k].nm)||(arr[0]&&arr[0].nm)||"এই লেকচার";
+  if(!confirm("“"+nm+"” লেকচারের "+BN(arr.length)+"টা পরীক্ষার ফলাফল (সংশোধনীসহ) মুছে যাবে। নিশ্চিত?"))return;
+  const ids=new Set(arr.map(h=>h.sid));hist=hist.filter(h=>rid(h)!==k);ids.forEach(i=>delete sets[i]);delete sets[k];hsave();ssave();renderHist()}
+function delAttempt(rec){
+  if(!confirm("এই পরীক্ষার ফলাফল মুছে ফেলবে?"))return;
+  const sid=rec.sid||("old:"+(rec.nm||""));
+  hist=hist.filter(h=>h!==rec);
+  if(!hist.some(h=>(h.sid||("old:"+(h.nm||"")))===sid))delete sets[sid];
+  hsave();ssave();renderHist();
+}
+const TRASH='<svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3"/></svg>';
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function overview(){
+  const box=$("hover");box.textContent="";
+  const lec=new Set(hist.map(rid)).size;
+  const avg=hist.reduce((a,h)=>a+Math.max(0,h.score/h.total*100),0)/hist.length;
+  [["লেকচার",BN(lec),""],["মোট পরীক্ষা",BN(hist.length),""],["গড় মার্ক",fm(Math.round(avg*10)/10)+"%","k "+mc(avg)]].forEach(x=>{
+    const c=document.createElement("div");if(x[2])c.className=x[2];
+    const l=document.createElement("small");l.textContent=x[0];const v=document.createElement("b");v.textContent=x[1];c.append(l,v);box.appendChild(c)});
+  box.classList.remove("hide");
+}
+function ord(n){return n+({1:"ম",2:"য়",3:"য়",4:"র্থ",5:"ম",6:"ষ্ঠ",7:"ম",8:"ম",9:"ম",10:"ম"}[n]||"তম")}
+let curPar=null,nextPar=null;const openG=new Set();
+function rootOf(sid){return(sets[sid]&&sets[sid].par)||sid}
+function rid(h){return rootOf(h.sid||("old:"+(h.nm||"")))}
+function attemptRow(h,lab,cor,prev){
+  const pr=Math.max(0,h.score/h.total*100),r=el("div","ar2 "+theme(pr)+(cor?" cor":""));let d="";try{d=new Date(h.t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}catch(e){}
+  const a=el("div","a1"),sc=el("b","sc "+mc(pr),fm(h.score));sc.appendChild(el("em","","/"+BN(h.total)));
+  a.append(el("span","chip"+(cor?" c2":""),lab),sc,el("span","pc "+mc(pr),Math.round(pr)+"%"));
+  if(prev!=null){const df=Math.round(pr-prev);if(df)a.append(el("span","df "+(df>0?"up":"dn"),(df>0?"▲ +":"▼ ")+Math.abs(df)+"%"))}
+  const x=el("button","xb","✕");x.type="button";x.setAttribute("aria-label","মুছো");x.onclick=e=>{e.stopPropagation();delAttempt(h)};a.appendChild(x);
+  const b=el("div","a2");[["g","✔ "+BN(h.ok)],["r","✘ "+BN(h.no)],["","বাদ "+BN(h.sk)],h.no?["r","কাটা −"+fm(h.no*NEG)]:null,h.sec?["","⏱ "+mmss(h.sec)]:null,["",d]].filter(Boolean).forEach(z=>b.appendChild(el("span",z[0],z[1])));
+  r.append(a,b);r.onclick=()=>openRec(h);return r}
+function renderHist(){
+  bkUI();const box=$("hlist");box.textContent="";
+  if(!hist.length){$("hcount").textContent="";$("hover").classList.add("hide");box.appendChild(el("p","mu","এখনো কোনো পরীক্ষা দাওনি। প্রথম পরীক্ষা দিলে ফলাফল এখানে জমা হবে।"));return}
+  overview();
+  const gr=new Map();hist.forEach(h=>{const k=rid(h);if(!gr.has(k))gr.set(k,[]);gr.get(k).push(h)});
+  const nameOf=(k,arr)=>{const z=sets[k];if(z&&z.nm)return z.nm;const c=arr.find(h=>sets[h.sid]&&sets[h.sid].pnm);return c?sets[c.sid].pnm:(arr[0].nm||"প্রশ্নের সেট")};
+  const q=($("hq").value||"").trim().toLowerCase(),md=$("hs").value,pc=h=>h.score/h.total;
+  const L=[...gr].map(([k,arr])=>({k,arr:arr.sort((a,b)=>a.t-b.t),nm:EN(nameOf(k,arr))})).filter(g=>g.nm.toLowerCase().includes(q))
+   .sort((a,b)=>{const la=a.arr[a.arr.length-1].t,lb=b.arr[b.arr.length-1].t;return md==="best"?Math.max(...b.arr.map(pc))-Math.max(...a.arr.map(pc)):md==="old"?la-lb:lb-la});
+  $("hcount").textContent=BN(L.length)+"টি";if(!L.length)box.appendChild(el("p","mu","এই নামে কোনো পরীক্ষা পাওয়া যায়নি।"));
+  L.forEach((g,gi)=>{
+    const rows=[];let mi=0,ci=0,pv=null;
+    g.arr.forEach(h=>{const cor=!!(sets[h.sid]&&sets[h.sid].par),p=Math.max(0,pc(h)*100);let lab;
+      if(cor){ci++;lab="সংশোধনী "+ord(ci)}else{mi++;lab=ord(mi)+" বার"}
+      rows.push(attemptRow(h,lab,cor,cor?null:pv));if(!cor)pv=p});
+    const last=g.arr[g.arr.length-1],lp=Math.round(Math.max(0,pc(last)*100)),open=openG.has(g.k);let d="";try{d=new Date(last.t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}catch(e){}
+    const c=el("div","gcard "+theme(lp)),hd=el("div","gh"),t=el("div","gt"),m=el("div","gm"),cv=el("span","cv",open?"▾":"▸");
+    t.appendChild(el("div","gn",g.nm));
+    m.appendChild(el("span",g.arr.length>1?"hl":"","🔁 "+BN(g.arr.length)+" বার"));if(ci)m.appendChild(el("span","cr","✏️ সংশোধনী "+BN(ci)));
+    m.append(el("span",mc(lp),"সর্বশেষ "+fm(last.score)+"/"+BN(last.total)+" ("+lp+"%)"),el("span","g","✔ "+BN(last.ok)),el("span","r","✘ "+BN(last.no)),el("span","","বাদ "+BN(last.sk)),el("span","",d));
+    t.appendChild(m);hd.append(el("span","gi",BN(gi+1)),t,cv);
+    const bd=el("div","gb"+(open?"":" hide")),ac=el("div","gact"),st=sets[g.k];
+    if(st&&st.t){const b=el("button","ib again","↻ আবার দাও");b.type="button";b.onclick=()=>start(st.t,null,st.nm);ac.appendChild(b)}
+    const dl=el("button","ib del");dl.type="button";dl.innerHTML=TRASH+"<span>মুছো</span>";dl.onclick=()=>delSet(g.k);ac.appendChild(dl);
+    bd.appendChild(ac);rows.forEach(r=>bd.appendChild(r));
+    hd.onclick=()=>{const h=bd.classList.toggle("hide");cv.textContent=h?"▸":"▾";h?openG.delete(g.k):openG.add(g.k)};
+    c.append(hd,bd);box.appendChild(c)});
+}
+function render(f){
+  const box=$("rlist");box.textContent="";let n=0;
+  Qs.forEach((q,i)=>{
+    const st=ans[i]<0?"skip":ans[i]===q.a?"ok":"wrong";
+    if(f==="ok"&&st!=="ok")return;if(f==="wrong"&&st!=="wrong")return;if(f==="skip"&&st!=="skip")return;n++;
+    const c=document.createElement("div");c.className="card qc";c.appendChild(qhead(i,q));
+    q.o.forEach((o,j)=>{
+      const b=document.createElement("button");b.className="opt";b.disabled=true;
+      const k=document.createElement("span");k.className="k";k.textContent=LET[j];const s=document.createElement("span");s.textContent=o;
+      if(j===q.a){b.classList.add("ok");k.textContent="✔"}else if(j===ans[i]){b.classList.add("no");k.textContent="✘"}
+      b.append(k,s);c.appendChild(b)});
+    const t=document.createElement("div");t.className="tag "+st;
+    t.textContent=st==="ok"?"✔ সঠিক":st==="wrong"?"✘ ভুল — সঠিক উত্তর: ("+LET[q.a]+")":"উত্তর দাওনি — সঠিক উত্তর: ("+LET[q.a]+")";
+    c.appendChild(t);box.appendChild(c)});
+  if(!n){const d=document.createElement("p");d.className="mu";d.style.textAlign="center";d.textContent="এখানে দেখানোর মতো কিছু নেই।";box.appendChild(d)}
+}
+$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;$("fname").textContent=f.name;const r=new FileReader();r.onload=()=>{const txt=String(r.result);$("file").value="";start(txt,null,f.name.replace(/\.txt$/i,""))};r.readAsText(f,"utf-8")};
+$("submit").onclick=()=>{const sk=ans.filter(x=>x<0).length;if(sk&&!confirm(BN(sk)+"টা প্রশ্নের উত্তর দাওনি। তবুও জমা দেবে?"))return;result()};
+$("again").onclick=()=>{ans=Qs.map(()=>-1);show("exam","replace");build();upd();save()};
+$("home2").onclick=()=>{$("file").value="";$("fname").textContent="ফাইল বেছে নাও";goHome()};
+const openHist=()=>{renderHist();show("hist","push")};
+$("histBtn").onclick=openHist;$("histBtn2").onclick=openHist;
+$("hback").onclick=()=>{$("file").value="";$("fname").textContent="ফাইল বেছে নাও";goHome()};
+refreshHome();
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));render(b.dataset.f)});
+document.querySelectorAll(".back").forEach(b=>b.onclick=()=>{if(idx>0)history.back();else show("home","pop")});
+try{history.replaceState({v:"home",i:0},"")}catch(e){}
+window.addEventListener("popstate",e=>{
+  const st=e.state||{v:"home",i:0};idx=st.i||0;let v=st.v||"home";
+  if((v==="exam"&&!Qs.length)||(v==="res"&&!$("rlist").children.length))v="home";
+  if(v==="hist")renderHist();if(v==="xtra")renderX();if(v==="bkpg")bkUI();
+  show(v,"pop")});
+refreshResume();
+
+const BK="mcq_bk_v1";
+function bkInfo(){let b={n:0,t:0};try{b=JSON.parse(localStorage.getItem(BK)||"")||b}catch(e){}return b}
+function bkUI(){
+  const b=bkInfo(),new_=Math.max(0,hist.length-b.n);
+  let d="";if(b.t){try{d=new Date(b.t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}catch(e){}}
+  $("bkst").textContent=b.t?("শেষ ব্যাকআপ: "+d+" ("+b.n+"টা পরীক্ষা)"):"এখনো ব্যাকআপ নেওয়া হয়নি";
+  $("bkwarn").textContent=hist.length&&new_>=1?("শেষ ব্যাকআপের পর "+new_+"টা নতুন পরীক্ষা জমেছে। ব্যাকআপ নাও।"):"";
+}
+function doBackup(){
+  const data={app:"mcq",v:1,hist,sets,bm};
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:"application/json"}));
+  a.download="mcq-backup.json";document.body.appendChild(a);a.click();a.remove();
+  try{localStorage.setItem(BK,JSON.stringify({n:hist.length,t:Date.now()}))}catch(e){}bkUI();toast("✅ ব্যাকআপ সেভ হয়েছে। ফোনের Downloads ফোল্ডারে mcq-backup.json");
+}
+$("bkout").onclick=doBackup;
+$("bkin").onchange=e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{
+    const d=JSON.parse(String(r.result));if(!d||d.app!=="mcq"||!Array.isArray(d.hist))throw 0;
+    const have=new Set(hist.map(h=>h.sid+"|"+h.t));let add=0;
+    d.hist.forEach(h=>{if(!have.has(h.sid+"|"+h.t)){hist.push(h);add++}});
+    hist.sort((a,b)=>a.t-b.t);
+    Object.keys(d.sets||{}).forEach(k=>{if(!sets[k])sets[k]=d.sets[k]});Object.keys(d.bm||{}).forEach(k=>{if(!bm[k])bm[k]=d.bm[k]});bsave();
+    hsave();ssave();renderHist();alert(add+"টা নতুন পরীক্ষা ফিরে এসেছে।");
+  }catch(err){alert("এটা সঠিক ব্যাকআপ ফাইল নয়।")}};r.readAsText(f,"utf-8")};
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+
+const mmss=x=>Math.floor(x/60)+":"+String(x%60).padStart(2,"0");let t0=Date.now();
+const BM="mcq_bm_v1";let bm={};try{bm=JSON.parse(localStorage.getItem(BM)||"{}")}catch(e){}
+function bsave(){try{localStorage.setItem(BM,JSON.stringify(bm))}catch(e){}}
+function toggleBm(q,s){const k=hash(q.q);if(bm[k]){if(!confirm("বুকমার্ক সরিয়ে দেবে?"))return;delete bm[k];s.textContent="☆"}else{const n=prompt("নোট লেখো (না চাইলে ফাঁকা রাখো)");if(n===null)return;bm[k]={q:q.q,o:q.o,a:q.a,note:n,t:Date.now()};s.textContent="★"}bsave()}
+setInterval(()=>{if(!$("exam").classList.contains("hide"))$("tm").textContent="⏱ "+mmss(Math.round((Date.now()-t0)/1000))},1000);
+function setTab(f){document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.f===f))}
+function fillRes(h){
+  const p=Math.max(0,h.score/h.total*100),nm=(sets[h.sid]&&sets[h.sid].nm)||h.nm||"";
+  const s0=sets[h.sid];$("rtitle").textContent=s0&&s0.par?EN(s0.pnm||nm)+" — সংশোধনী পরীক্ষা"+(h.n>1?" "+ord(h.n):""):(nm?EN(nm)+" — ":"")+ord(h.n)+" বার";$("redo").classList.toggle("hide",h.no+h.sk===0);$("pct").className="big "+mc(p);$("pct").textContent=fm(h.score);$("frac").textContent="/ "+BN(h.total)+" নম্বরের মধ্যে";
+  $("ring").style.setProperty("--p",p);$("sc").className="card score "+theme(p);$("msheet").textContent="";$("msheet").appendChild(cellsEl(h));
+  $("grade").textContent=p>70?"অসাধারণ! তুমি দারুণ প্রস্তুত":p>=35?"ভালো হয়েছে, আরেকটু অনুশীলন":"চিন্তা নেই, শেখা চলতে থাকুক";
+  $("msg").textContent=(h.no?"সঠিক +"+fm(h.ok)+", ভুলের জন্য "+neg(h.no*NEG)+" কাটা গেছে":"সঠিক +"+fm(h.ok)+", কোনো নম্বর কাটা যায়নি")+(h.sec?" • সময় "+mmss(h.sec):"");
+  const L={all:"সব "+h.total,ok:"সঠিক "+h.ok,wrong:"ভুল "+h.no,skip:"বাদ "+h.sk};document.querySelectorAll(".tabs button").forEach(b=>b.textContent=L[b.dataset.f])}
+function openRec(h){const st=sets[h.sid];
+  if(!h.ans||!st||!st.t){alert("এই পুরোনো পরীক্ষার উত্তরের বিস্তারিত সেভ করা নেই। এখন থেকে দেওয়া পরীক্ষার বিস্তারিত দেখা যাবে।");return}
+  Qs=parse(st.t).out;ans=h.ans;rawText=st.t;examName=st.nm||h.nm||"";fillRes(h);show("res","push");render("all");setTab("all")}
+function qsToText(a){return a.map((q,i)=>BN(i+1)+". "+q.q+"\n"+q.o.map((o,j)=>LET[j]+") "+o).join("\n")+"\nউত্তর: "+LET[q.a]).join("\n\n")}
+function startFrom(a,l,par){nextPar=par||null;start(qsToText(a),null,l+" "+new Date().toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}));nextPar=null}
+$("redo").onclick=()=>{const w=Qs.filter((q,i)=>ans[i]!==q.a);if(!w.length){alert("সবগুলো সঠিক হয়েছে!");return}const sid=hash(rawText),k=rootOf(sid),nm=(sets[k]&&sets[k].nm)||(sets[sid]&&sets[sid].pnm)||examName||"পরীক্ষা";startFrom(w,EN(nm)+" — সংশোধনী",{sid:k,nm:nm})};
+$("hq").oninput=renderHist;$("hs").onchange=renderHist;
+$("xBtn").onclick=$("xBtn2").onclick=()=>{renderX();show("xtra","push")};
+function renderX(){
+  const b=$("xbody");b.textContent="";const card=t=>{const c=el("div","card");c.appendChild(el("h2","",t));b.appendChild(c);return c};
+  if(!hist.length)b.appendChild(el("p","mu","পরীক্ষা দিলে এখানে পরিসংখ্যান আসবে।"));
+  else{
+    const ps=hist.map(h=>Math.max(0,h.score/h.total*100)),ok=hist.reduce((a,h)=>a+h.ok,0),wr=hist.reduce((a,h)=>a+h.no,0),ts=hist.filter(h=>h.sec).map(h=>h.sec),r1=x=>fm(Math.round(x*10)/10)+"%";
+    const c=card("পরিসংখ্যান"),g=el("div","cells");
+    [["সেরা মার্ক",r1(Math.max(...ps)),mc(Math.max(...ps))],["সবচেয়ে কম",r1(Math.min(...ps)),mc(Math.min(...ps))],["সঠিকের হার",ok+wr?Math.round(ok/(ok+wr)*100)+"%":"—"],["গড় সময়",ts.length?mmss(Math.round(ts.reduce((a,x)=>a+x,0)/ts.length)):"—"],["মোট সঠিক",BN(ok)],["মোট ভুল",BN(wr)]].forEach(x=>{const d=el("div");d.append(el("small","",x[0]),el("b",x[2]||"",x[1]));g.appendChild(d)});c.appendChild(g);
+    const c2=card("উন্নতির গ্রাফ (শেষ "+BN(Math.min(30,ps.length))+"টা পরীক্ষা, শতকরা মার্ক)"),l=ps.slice(-30),st=l.length>1?280/(l.length-1):0,pt=l.map((p,i)=>[10+i*st,100-p*.9]);
+    c2.insertAdjacentHTML("beforeend",'<svg viewBox="0 0 300 110" style="width:100%;height:auto"><line x1="10" y1="10" x2="290" y2="10" stroke="var(--bd)"/><line x1="10" y1="55" x2="290" y2="55" stroke="var(--bd)"/><line x1="10" y1="100" x2="290" y2="100" stroke="var(--bd)"/><polyline fill="none" stroke="var(--bl)" stroke-width="2.5" points="'+pt.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")+'"/>'+pt.map(p=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="var(--bl)"/>').join("")+'</svg>');
+    const m=new Map();hist.forEach(h=>{const z=sets[h.sid];if(!h.ans||!z||!z.t)return;parse(z.t).out.forEach((q,i)=>{if(h.ans[i]>=0&&h.ans[i]!==q.a){const e=m.get(q.q)||{q,n:0};e.n++;m.set(q.q,e)}})});
+    const bad=[...m.values()].sort((a,b)=>b.n-a.n).slice(0,20),c3=card("ভুল হওয়া প্রশ্ন (বেশিবার ভুল আগে)");
+    if(!bad.length)c3.appendChild(el("p","mu","এখনো কোনো ভুল জমেনি।"));
+    else{bad.forEach(e=>{const r=el("div","mb");r.append(el("i","",BN(e.n)+" বার"),el("span","",e.q));c3.appendChild(r)});
+      const bt=el("button","btn","এগুলো দিয়ে পরীক্ষা দাও");bt.type="button";bt.onclick=()=>startFrom(bad.map(e=>e.q),"ভুল প্রশ্ন");c3.appendChild(bt)}}
+  const bl=Object.values(bm).sort((a,b)=>b.t-a.t),c4=card("বুকমার্ক ও নোট");
+  if(!bl.length)c4.appendChild(el("p","mu","প্রশ্নের পাশের ☆ চাপলে এখানে জমবে।"));
+  else{bl.forEach(e=>{const r=el("div","mb"),d=el("span","",e.q);if(e.note)d.appendChild(el("small","","নোট: "+e.note));r.append(el("i","","★"),d);c4.appendChild(r)});
+    const bt=el("button","btn","বুকমার্ক করা প্রশ্নে পরীক্ষা দাও");bt.type="button";bt.onclick=()=>startFrom(bl.map(e=>({q:e.q,o:e.o,a:e.a})),"বুকমার্ক");c4.appendChild(bt)}}
+
+function toast(m){const t=$("toast");t.textContent=m;t.classList.remove("hide");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add("hide"),5500)}
+$("bkBtn").onclick=$("bkBtn2").onclick=()=>{bkUI();show("bkpg","push")};
+$("bkshare").onclick=async()=>{
+  const f=new File([JSON.stringify({app:"mcq",v:1,hist,sets,bm})],"mcq-backup.json",{type:"application/json"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"MCQ ব্যাকআপ"});try{localStorage.setItem(BK,JSON.stringify({n:hist.length,t:Date.now()}))}catch(e){}bkUI()}catch(e){}}
+  else alert("এই ব্রাউজারে সরাসরি পাঠানো যাচ্ছে না। উপরের “ব্যাকআপ নাও” চাপুন, তারপর Files অ্যাপ থেকে ফাইলটা Drive বা WhatsApp-এ পাঠান.")};
+</script>
+<script>
+/* ===== LIVE EXAM (Firebase) — old flow is untouched above =====
+   SETUP: create a free Firebase project (professional Google account),
+   create a Realtime Database in test mode, copy its web firebaseConfig
+   and paste it into firebaseConfig below. Until then, live features
+   show a friendly Bengali setup message instead of crashing.
+   ADMIN_PASSWORD is a simple classroom gate only: anyone who can view
+   this page source can see it, so it is NOT bank-level security.
+   Change it before publishing. */
+var firebaseConfig = {
+  apiKey: "AIzaSyD5rm9liHcz96apE1c9EcPQISECemJffCs",
+  authDomain: "mcq-live-question.firebaseapp.com",
+  databaseURL: "https://mcq-live-question-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mcq-live-question",
+  storageBucket: "mcq-live-question.firebasestorage.app",
+  messagingSenderId: "275937176501",
+  appId: "1:275937176501:web:68e33b75d65f8cfae807fc"
+};
+var ADMIN_PASSWORD = "047312";
+var liveDb = null, liveData = null, liveQs = [], liveAns = [], liveTimerInt = null, liveEndAt = 0, liveExamId = null, liveStudent = null, liveSubmitted = false;
+function liveFirebaseConfigured(){
+  return !!(firebaseConfig && firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf("PASTE_YOUR") !== 0 && firebaseConfig.databaseURL && firebaseConfig.databaseURL.indexOf("PASTE_YOUR") !== 0);
+}
+function liveNeedSetupMsg(){ return "Firebase সেটআপ এখনো করা হয়নি। প্রথমে SETUP_BANGLA.md অনুযায়ী ফ্রি Firebase প্রজেক্ট বানিয়ে firebaseConfig-এ তথ্য বসান, তারপর আবার চেষ্টা করো।"; }
+function liveInit(){
+  if(!liveFirebaseConfigured()) return false;
+  try{
+    if(typeof firebase === "undefined") return false;
+    if(!firebase.apps || !firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    liveDb = firebase.database();
+    return true;
+  }catch(e){ return false; }
+}
+function liveHideOriginal(){
+  ["home","exam","res","hist","xtra","bkpg"].forEach(function(x){ var e=document.getElementById(x); if(e) e.classList.add("hide"); });
+  var f=document.getElementById("foot"); if(f) f.classList.add("hide");
+}
+function liveBackHome(){
+  ["liveAdmin","liveExam"].forEach(function(x){ var e=document.getElementById(x); if(e) e.classList.add("hide"); });
+  try{ show("home","pop"); }catch(e){ document.getElementById("home").classList.remove("hide"); }
+}
+function liveShowAdmin(){
+  if(!liveInit()){ alert(liveNeedSetupMsg()); }
+  liveHideOriginal();
+  document.getElementById("liveAdmin").classList.remove("hide");
+  window.scrollTo(0,0);
+}
+function liveAdminLogin(){
+  var p = document.getElementById("liveAdminPass").value;
+  if(p === ADMIN_PASSWORD){
+    document.getElementById("liveAdminLogin").classList.add("hide");
+    document.getElementById("liveAdminForm").classList.remove("hide");
+    document.getElementById("liveAdminErr").textContent = "";
+    if(!liveInit()) document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg();
+  } else {
+    document.getElementById("liveAdminErr").textContent = "পাসওয়ার্ড ঠিক নয়।";
+  }
+}
+function liveIsLive(d){
+  if(!d || d.status !== "live") return false;
+  var now = Date.now();
+  return (!d.startAt || now >= d.startAt) && (!d.endAt || now <= d.endAt);
+}
+function liveCatHtml(cat){
+  return cat ? '<span class="catChip">📂 ' + cat + '</span>' : '';
+}
+function liveUpdateBanner(d){
+  liveData = d;
+  var b = document.getElementById("liveBanner");
+  var home = document.getElementById("liveHomeCard");
+  if(liveIsLive(d)){
+    document.getElementById("liveBannerText").textContent = "🔴 LIVE EXAM — " + (d.name || "পরীক্ষা");
+    document.getElementById("liveBannerCat").innerHTML = d.category ? '<b>📂 ' + d.category + '</b>' : '';
+    b.classList.add("on");
+    document.getElementById("liveHomeCat").innerHTML = liveCatHtml(d.category);
+    document.getElementById("liveHomeName").textContent = d.name || "";
+    document.getElementById("liveHomeTime").textContent = "সময়: " + (d.durationMinutes || "") + " মিনিট" + (d.endAt ? " • শেষ: " + new Date(d.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+    home.classList.remove("hide");
+  } else {
+    b.classList.remove("on");
+    home.classList.add("hide");
+  }
+}
+function liveWatch(){
+  if(!liveInit()) return;
+  liveDb.ref("liveExam/current").on("value", function(snap){ liveUpdateBanner(snap.val()); });
+  setInterval(function(){ if(liveData) liveUpdateBanner(liveData); }, 30000);
+}
+document.getElementById("liveExamFile").addEventListener("change", function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){ document.getElementById("liveExamQuestions").value = String(r.result); };
+  r.readAsText(f, "utf-8");
+});
+function livePublish(){
+  if(!liveInit()){ document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg(); return; }
+  var name = document.getElementById("liveExamName").value.trim();
+  var category = document.getElementById("liveExamCategory").value.trim();
+  var minutes = parseInt(document.getElementById("liveExamMinutes").value, 10) || 30;
+  var startV = document.getElementById("liveExamStart").value;
+  var endV = document.getElementById("liveExamEnd").value;
+  var text = document.getElementById("liveExamQuestions").value;
+  if(!name){ document.getElementById("liveAdminMsg").textContent = "পরীক্ষার নাম লেখো।"; return; }
+  if(!category){ document.getElementById("liveAdminMsg").textContent = "ক্যাটাগরি লেখো (যেমন: বিষয় বা লেকচারের নাম)।"; return; }
+  if(!text.trim()){ document.getElementById("liveAdminMsg").textContent = "প্রশ্ন লেখো বা .txt ফাইল দাও।"; return; }
+  var parsed;
+  try{ parsed = parse(text); }catch(e){ document.getElementById("liveAdminMsg").textContent = "প্রশ্ন পার্স করতে সমস্যা হয়েছে। ফরম্যাট আগের মতো আছে কিনা দেখো।"; return; }
+  if(!parsed.out.length || parsed.errs.length){ document.getElementById("liveAdminMsg").textContent = parsed.errs.slice(0,5).join("\n") || "কোনো প্রশ্ন পাওয়া যায়নি।"; return; }
+  var examId = "exam_" + Date.now();
+  var data = { examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: startV ? new Date(startV).getTime() : Date.now(), endAt: endV ? new Date(endV).getTime() : Date.now() + minutes*60000, status: "live", createdAt: Date.now() };
+  liveDb.ref("liveExam/current").set(data).then(function(){
+    return liveDb.ref("liveExam/history/" + examId).set({ examId: examId, name: name, category: category, durationMinutes: minutes, startAt: data.startAt, endAt: data.endAt, createdAt: data.createdAt, status: "live" });
+  }).then(function(){
+    document.getElementById("liveAdminMsg").textContent = "✅ Live হয়ে গেছে! ক্যাটাগরি: " + category + " • প্রশ্ন: " + parsed.out.length + "টি";
+  }).catch(function(e){ document.getElementById("liveAdminMsg").textContent = "Live করতে সমস্যা হয়েছে: " + e.message; });
+}
+function liveStop(){
+  if(!liveInit()){ document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg(); return; }
+  var p = liveDb.ref("liveExam/current").update({status:"stopped"});
+  p.then(function(){
+    if(liveData && liveData.examId) return liveDb.ref("liveExam/history/" + liveData.examId).update({status:"stopped"});
+  }).then(function(){ document.getElementById("liveAdminMsg").textContent = "⏹ লাইভ পরীক্ষা বন্ধ করা হয়েছে।"; })
+  .catch(function(e){ document.getElementById("liveAdminMsg").textContent = "বন্ধ করতে সমস্যা হয়েছে: " + e.message; });
+}
+function liveBannerTap(){
+  if(!liveInit()){ alert(liveNeedSetupMsg()); return; }
+  if(!liveData){ alert("এখন কোনো লাইভ পরীক্ষা পাওয়া যায়নি।"); return; }
+  if(!liveIsLive(liveData)){ alert("এখন কোনো লাইভ পরীক্ষা চলছে না।"); return; }
+  liveHideOriginal();
+  document.getElementById("liveExam").classList.remove("hide");
+  document.getElementById("liveStart").classList.remove("hide");
+  document.getElementById("liveRun").classList.add("hide");
+  document.getElementById("liveResult").classList.add("hide");
+  document.getElementById("liveStartName").textContent = liveData.name || "Live Exam";
+  document.getElementById("liveStartCat").innerHTML = liveCatHtml(liveData.category);
+  document.getElementById("liveStartMeta").textContent = "সময়: " + (liveData.durationMinutes || "") + " মিনিট" + (liveData.endAt ? " • শেষ: " + new Date(liveData.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+  document.getElementById("liveStartErr").textContent = "";
+  window.scrollTo(0,0);
+}
+function liveStartExam(){
+  var sid = document.getElementById("liveStudentId").value.trim();
+  var sname = document.getElementById("liveStudentName").value.trim();
+  if(!sid){ document.getElementById("liveStartErr").textContent = "তোমার আইডি লেখো।"; return; }
+  if(!liveData || !liveData.examId){ document.getElementById("liveStartErr").textContent = "লাইভ পরীক্ষা পাওয়া যায়নি।"; return; }
+  liveExamId = liveData.examId;
+  liveDb.ref("results/" + liveExamId + "/" + sid).once("value").then(function(snap){
+    if(snap.exists()){
+      document.getElementById("liveStartErr").textContent = "তুমি এই পরীক্ষাটা আগেই দিয়েছো। একটা পরীক্ষা একবারই দেওয়া যাবে।";
+      return;
+    }
+    liveStudent = { studentId: sid, name: sname };
+    liveQs = liveData.questions || [];
+    liveAns = liveQs.map(function(){ return -1; });
+    liveSubmitted = false;
+    var now = Date.now();
+    liveEndAt = Math.min(now + (liveData.durationMinutes || 30)*60000, liveData.endAt || (now + (liveData.durationMinutes || 30)*60000));
+    document.getElementById("liveStart").classList.add("hide");
+    document.getElementById("liveRun").classList.remove("hide");
+    liveBuild(); liveUpd(); liveTick();
+    clearInterval(liveTimerInt);
+    liveTimerInt = setInterval(liveTick, 1000);
+    window.scrollTo(0,0);
+  }).catch(function(e){ document.getElementById("liveStartErr").textContent = "শুরু করতে সমস্যা হয়েছে: " + e.message; });
+}
+function liveTick(){
+  var left = Math.max(0, Math.round((liveEndAt - Date.now())/1000));
+  var m = Math.floor(left/60), s = left % 60;
+  document.getElementById("liveTimer").textContent = "⏱ " + m + ":" + String(s).padStart(2,"0") + " বাকি";
+  if(left <= 0){ clearInterval(liveTimerInt); if(!liveSubmitted) liveSubmit(true); }
+}
+function liveBuild(){
+  var box = document.getElementById("liveList"); box.textContent = "";
+  liveQs.forEach(function(q,i){
+    var c = document.createElement("div"); c.className = "card qc";
+    var h = document.createElement("div"); h.className = "q";
+    var n = document.createElement("span"); n.className = "n"; n.textContent = BN(i+1);
+    var t = document.createElement("span"); t.textContent = q.q;
+    h.append(n,t); c.appendChild(h);
+    q.o.forEach(function(o,j){
+      var b = document.createElement("button"); b.className = "opt";
+      var k = document.createElement("span"); k.className = "k"; k.textContent = LET[j];
+      var s = document.createElement("span"); s.textContent = o;
+      b.append(k,s);
+      b.onclick = function(){ liveAns[i] = liveAns[i] === j ? -1 : j; livePaint(i); liveUpd(); };
+      c.appendChild(b);
+    });
+    box.appendChild(c); livePaint(i);
+  });
+}
+function livePaint(i){
+  var cards = document.querySelectorAll("#liveList .card");
+  if(!cards[i]) return;
+  cards[i].querySelectorAll(".opt").forEach(function(b,j){
+    b.classList.toggle("sel", liveAns[i] === j);
+    b.firstChild.textContent = liveAns[i] === j ? "✔" : LET[j];
+  });
+}
+function liveUpd(){
+  var d = liveAns.filter(function(x){ return x >= 0; }).length;
+  document.getElementById("liveDone").textContent = "উত্তর " + BN(d) + "/" + BN(liveQs.length);
+  document.getElementById("liveTotal").textContent = "";
+  document.getElementById("liveBar").style.width = (liveQs.length ? d/liveQs.length*100 : 0) + "%";
+}
+function liveSubmit(auto){
+  if(liveSubmitted) return;
+  liveSubmitted = true;
+  clearInterval(liveTimerInt);
+  var ok = 0, no = 0, sk = 0;
+  liveAns.forEach(function(a,i){ if(a < 0) sk++; else if(a === liveQs[i].a) ok++; else no++; });
+  var score = Math.round((ok - no * 0.25) * 100) / 100;
+  var rec = { studentId: liveStudent.studentId, name: liveStudent.name || "", score: score, correct: ok, wrong: no, skipped: sk, total: liveQs.length, answers: liveAns.slice(), submittedAt: Date.now(), category: liveData.category || "", examName: liveData.name || "" };
+  liveDb.ref("results/" + liveExamId + "/" + liveStudent.studentId).set(rec).then(function(){
+    liveShowResult(rec, auto);
+  }).catch(function(e){ alert("ফলাফল সেভ করতে সমস্যা হয়েছে: " + e.message); liveSubmitted = false; });
+}
+function liveShowResult(rec, auto){
+  document.getElementById("liveRun").classList.add("hide");
+  document.getElementById("liveResult").classList.remove("hide");
+  document.getElementById("liveResTitle").textContent = (liveData.name || "Live Exam") + " — ফলাফল";
+  document.getElementById("liveResScore").textContent = fm(rec.score) + " / " + BN(rec.total);
+  var p = rec.total ? Math.max(0, rec.score/rec.total*100) : 0;
+  var g = document.createElement("div"); g.className = "cells";
+  [["প্রাপ্ত নম্বর", fm(rec.score), "/ " + BN(rec.total)], ["সঠিক", BN(rec.correct), "টা"], ["ভুল", BN(rec.wrong), "টা"], ["বাদ", BN(rec.skipped), "টা"], ["নেগেটিভ কাটা", rec.wrong ? "−" + fm(rec.wrong*0.25) : fm(0), ""], ["মার্ক", fm(Math.round(p*10)/10) + "%", ""]].forEach(function(x){
+    var d = document.createElement("div"); d.innerHTML = "<small>" + x[0] + "</small><b>" + x[1] + "</b> " + (x[2] || ""); g.appendChild(d);
+  });
+  var cells = document.getElementById("liveResCells"); cells.textContent = ""; cells.appendChild(g);
+  document.getElementById("liveResNote").textContent = auto ? "সময় শেষ হওয়ায় নিজে নিজে জমা হয়েছে।" : "✅ ফলাফল অনলাইন ডাটাবেজে সেভ হয়েছে।";
+  var box = document.getElementById("liveResList"); box.textContent = "";
+  liveQs.forEach(function(q,i){
+    var st = liveAns[i] < 0 ? "skip" : liveAns[i] === q.a ? "ok" : "wrong";
+    var c = document.createElement("div"); c.className = "card qc";
+    var h = document.createElement("div"); h.className = "q"; h.textContent = BN(i+1) + ". " + q.q; c.appendChild(h);
+    q.o.forEach(function(o,j){
+      var b = document.createElement("button"); b.className = "opt" + (j === q.a ? " ok" : j === liveAns[i] ? " no" : ""); b.disabled = true;
+      b.textContent = LET[j] + ") " + o; c.appendChild(b);
+    });
+    var t = document.createElement("div"); t.className = "tag " + st;
+    t.textContent = st === "ok" ? "✔ সঠিক" : st === "wrong" ? "✘ ভুল — সঠিক উত্তর: (" + LET[q.a] + ")" : "উত্তর দাওনি — সঠিক উত্তর: (" + LET[q.a] + ")";
+    c.appendChild(t); box.appendChild(c);
+  });
+  liveShowLeaderboard(true);
+  window.scrollTo(0,0);
+}
+function liveSortLeader(rows){
+  return rows.slice().sort(function(a,b){
+    if(b.score !== a.score) return b.score - a.score;
+    return (a.submittedAt || 0) - (b.submittedAt || 0);
+  });
+}
+function liveLeaderHtml(rows){
+  if(!rows.length) return "<p class='mu'>এখনো কেউ পরীক্ষা দেয়নি।</p>";
+  return liveSortLeader(rows).map(function(r,i){
+    return "<div class='hrow'><b>" + (i+1) + ". " + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + "</span></div>";
+  }).join("");
+}
+function liveShowLeaderboard(silent){
+  if(!liveExamId && !(liveData && liveData.examId)){ if(!silent) alert("কোনো লাইভ পরীক্ষা বেছে নেওয়া হয়নি।"); return; }
+  var eid = liveExamId || liveData.examId;
+  var ended = false;
+  if(liveData && liveData.examId === eid){ ended = (liveData.status === "stopped") || (liveData.endAt && Date.now() > liveData.endAt); }
+  liveDb.ref("results/" + eid).once("value").then(function(snap){
+    var rows = [];
+    snap.forEach(function(ch){ rows.push(ch.val()); });
+    var card = document.getElementById("liveLeaderCard");
+    var body = document.getElementById("liveLeaderBody");
+    if(card){ card.classList.remove("hide"); body.innerHTML = ended ? liveLeaderHtml(rows) : "<p class='mu'>পরীক্ষা শেষ হলে এখানে লিডারবোর্ড দেখা যাবে। এখন পর্যন্ত জমা: " + rows.length + "টি।</p>" + liveLeaderHtml(rows); }
+  }).catch(function(e){ if(!silent) alert(e.message); });
+}
+function liveLoadAdminResults(){
+  if(!liveInit()){ document.getElementById("liveAdminMsg").textContent = liveNeedSetupMsg(); return; }
+  var box = document.getElementById("liveAdminResultsBody");
+  document.getElementById("liveAdminResults").classList.remove("hide");
+  box.textContent = "লোড হচ্ছে…";
+  Promise.all([liveDb.ref("liveExam/history").once("value"), liveDb.ref("results").once("value"), liveDb.ref("liveExam/current").once("value")]).then(function(res){
+    var hist = res[0].val() || {}, allRes = res[1].val() || {}, cur = res[2].val() || null;
+    var examsById = {};
+    Object.keys(hist).forEach(function(id){ examsById[id] = hist[id]; });
+    if(cur && cur.examId) examsById[cur.examId] = cur;
+    var byCat = {};
+    Object.keys(allRes).forEach(function(eid){
+      var meta = examsById[eid] || { name: eid, category: "" };
+      var cat = meta.category || "ক্যাটাগরি ছাড়া";
+      if(!byCat[cat]) byCat[cat] = [];
+      Object.keys(allRes[eid]).forEach(function(sid){ byCat[cat].push(allRes[eid][sid]); });
+    });
+    var html = "";
+    Object.keys(byCat).forEach(function(cat){
+      var rows = byCat[cat];
+      html += "<h3>📂 ক্যাটাগরি: " + cat + " (" + rows.length + " জন)</h3>";
+      html += "<h4>🏆 লিডারবোর্ড</h4>" + liveLeaderHtml(rows);
+      html += "<h4>সব ফলাফল</h4>" + rows.map(function(r){
+        var d = ""; try{ d = new Date(r.submittedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}); }catch(e){}
+        return "<div class='hrow'><b>" + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + (r.examName || "") + " • " + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + " • " + d + "</span></div>";
+      }).join("");
+    });
+    box.innerHTML = html || "<p class='mu'>এখনো কোনো ফলাফল নেই।</p>";
+  }).catch(function(e){ box.textContent = "ফলাফল আনতে সমস্যা হয়েছে: " + e.message; });
+}
+liveWatch();
+</script></body></html>

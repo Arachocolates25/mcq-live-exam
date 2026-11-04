@@ -414,8 +414,8 @@ function result(){
   let ok=0,no=0,sk=0;ans.forEach((a,i)=>{a<0?sk++:a===Qs[i].a?ok++:no++});
   const total=Qs.length,score=ok-no*NEG,p=Math.max(0,score/total*100),sid=hash(rawText);
   if(!sets[sid]){sets[sid]={nm:examName,t:rawText};if(curPar){sets[sid].par=curPar.sid;sets[sid].pnm=curPar.nm}}else if(!sets[sid].nm&&examName)sets[sid].nm=examName;ssave();
-  const n=hist.filter(h=>h.sid===sid).length+1;
-  const rec={n,sid,t:Date.now(),nm:examName,ok,no,sk,total,score,ans:ans.slice(),sec:Math.round((Date.now()-t0)/1000)};hist.push(rec);hsave();refreshHome();
+  hist=hist.filter(h=>h.sid!==sid); // একই পরীক্ষার আগের বারগুলো মুছে যাবে, শুধু সর্বশেষটাই থাকবে
+  const rec={n:1,sid,t:Date.now(),nm:examName,ok,no,sk,total,score,ans:ans.slice(),sec:Math.round((Date.now()-t0)/1000)};hist.push(rec);hsave();refreshHome();
   try{
     if(typeof liveInit === "function" && typeof liveSafeId === "function" && liveInit()){
       let lk=""; try{ lk=localStorage.getItem("mcq_student_id_v1")||""; }catch(e){}
@@ -910,10 +910,7 @@ function liveStartExam(){
   if(!liveData || !liveData.examId){ liveStartErrMsg("লাইভ পরীক্ষা পাওয়া যায়নি।"); return; }
   liveExamId = liveData.examId;
   liveDb.ref("results/" + liveExamId + "/" + liveSafeId(sid)).once("value").then(function(snap){
-    if(snap.exists()){
-      liveStartErrMsg("তুমি এই পরীক্ষাটা আগেই দিয়েছো। একটা পরীক্ষা একবারই দেওয়া যাবে।");
-      return;
-    }
+    // যতবার ইচ্ছা পরীক্ষা দেওয়া যাবে; সর্বশেষ জমা দেওয়াটাই আগেরটার জায়গায় বসবে
     liveStudent = { studentId: sid, name: sname };
     liveQs = (liveData.questions || []).slice();
     liveRunning = true;

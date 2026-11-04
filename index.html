@@ -184,7 +184,9 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 /* ===== LIVE EXAM additions (old design untouched) ===== */
 @keyframes liveblink{0%,100%{opacity:1}50%{opacity:.35}}
 #liveBanner{display:none;position:sticky;top:0;z-index:60;background:#d23b4b;color:#fff;text-align:center;padding:12px 10px;font-weight:700;cursor:pointer}
-#liveBanner.on{display:block;animation:liveblink 1.2s infinite}
+#liveBanner.on{display:block}
+.liveDot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#fff;animation:liveblink 1.2s infinite;vertical-align:middle;margin-right:6px}
+.liveDotRed{display:inline-block;width:10px;height:10px;border-radius:50%;background:#d23b4b;animation:liveblink 1.2s infinite;vertical-align:middle;margin-right:6px}
 #liveBanner .cat{font-size:13px}
 #liveBanner .cat b{display:inline-block;background:#fff;color:#d23b4b;border-radius:999px;padding:2px 12px;margin-left:6px}
 .catChip{display:inline-block;background:var(--blb);color:var(--bl);border:1px solid var(--bl);border-radius:999px;padding:3px 13px;font-size:14px;font-weight:700}
@@ -227,6 +229,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 </div>
 <div class="row2"><button class="btn alt" id="histBtn">📋 ফলাফল</button><button class="btn alt" id="xBtn">📊 সুবিধা</button><button class="btn alt" id="bkBtn">💾 ব্যাকআপ</button></div>
 <div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div><div class="card" id="liveExamListWrap"><h2>📋 সব পরীক্ষা</h2><p class="mu" style="font-size:14px">তুমি যত পরীক্ষা আপডেট করবে, একের পর এক এখানে দেখা যাবে। যেকোনো লাইভ পরীক্ষায় চাপ দিলেই পরীক্ষা শুরু হবে।</p><div id="liveExamList"></div></div>
+<div class="card" id="pastLiveWrap"><h2>📋 আমার পুরনো লাইভ রেজাল্ট</h2><p class="mu" style="font-size:14px">আগে যে লাইভ পরীক্ষাগুলো দিয়েছো, আইডি লিখে সেগুলো ধাপে ধাপে দেখো।</p><input id="pastLiveId" placeholder="তোমার আইডি" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0"><button class="btn" type="button" onclick="liveLoadPastResults()">পুরনো রেজাল্ট দেখো</button><div id="pastLiveList"></div></div><div class="card hide" id="pastLiveDetailWrap"><h2 id="pastLiveDetailTitle">বিস্তারিত</h2><div id="pastLiveDetailBody"></div><button class="btn alt" type="button" onclick="document.getElementById('pastLiveDetailWrap').classList.add('hide')">পেছনে</button></div>
 <div class="row2"><button class="btn alt" type="button" onclick="liveShowAdmin()">🔐 অ্যাডমিন</button></div>
 <div class="card hide" id="resume"><h2>আগের পরীক্ষা অসম্পূর্ণ আছে</h2><button class="btn alt" id="resumeBtn" style="margin-top:0">চালিয়ে যাও</button></div>
 </section>
@@ -305,8 +308,8 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 <p class="mu" id="liveStartMeta" style="font-size:15px"></p>
 <input id="liveStudentId" placeholder="তোমার আইডি (আবশ্যক)" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0">
 <input id="liveStudentName" placeholder="তোমার নাম (ঐচ্ছিক)" style="width:100%;padding:11px;border:1.5px solid var(--bd);border-radius:12px;margin:6px 0">
-<button class="btn" type="button" onclick="liveStartExam()">পরীক্ষা শুরু করো</button>
 <p class="err" id="liveStartErr"></p>
+<button class="btn" type="button" onclick="liveStartExam()">পরীক্ষা শুরু করো</button>
 </div>
 <div id="liveRun" class="hide">
 <div class="card"><div class="liveTimer" id="liveTimer"></div><div class="cnt" style="display:flex;justify-content:space-between;font-size:14px;color:var(--mu)"><span id="liveDone"></span><span id="liveTotal"></span></div><div class="bar"><i id="liveBar" style="width:0"></i></div></div>
@@ -317,6 +320,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
 <div class="card score"><h2 id="liveResTitle"></h2><p style="font-size:36px;font-weight:700;margin:6px 0" id="liveResScore"></p><div id="liveResCells"></div><p class="small" id="liveResNote"></p></div>
 <div id="liveResList"></div>
 <div class="card hide" id="liveLeaderCard"><h2>🏆 লিডারবোর্ড</h2><div id="liveLeaderBody"></div></div>
+<button class="btn alt" type="button" onclick="liveDeleteMyResult()">🗑 এই রেজাল্ট ডিলিট করো</button>
 <button class="btn alt" type="button" onclick="liveShowLeaderboard()">🏆 লিডারবোর্ড দেখো</button>
 <button class="btn alt" type="button" onclick="liveBackHome()">হোমে ফিরে যাও</button>
 </div>
@@ -412,6 +416,13 @@ function result(){
   if(!sets[sid]){sets[sid]={nm:examName,t:rawText};if(curPar){sets[sid].par=curPar.sid;sets[sid].pnm=curPar.nm}}else if(!sets[sid].nm&&examName)sets[sid].nm=examName;ssave();
   const n=hist.filter(h=>h.sid===sid).length+1;
   const rec={n,sid,t:Date.now(),nm:examName,ok,no,sk,total,score,ans:ans.slice(),sec:Math.round((Date.now()-t0)/1000)};hist.push(rec);hsave();refreshHome();
+  try{
+    if(typeof liveInit === "function" && typeof liveSafeId === "function" && liveInit()){
+      let lk=""; try{ lk=localStorage.getItem("mcq_student_id_v1")||""; }catch(e){}
+      if(!lk){ lk="student-"+Math.random().toString(36).slice(2,10); try{ localStorage.setItem("mcq_student_id_v1",lk); }catch(e){} }
+      liveDb.ref("results/file-upload/" + liveSafeId(lk)).set({ studentId: lk, name: "", score: Math.round(rec.score*100)/100, correct: rec.ok, wrong: rec.no, skipped: rec.sk, total: rec.total, answers: rec.ans.slice(), submittedAt: rec.t, category: "ফাইল আপলোড", examName: rec.nm || "" }).catch(function(){});
+    }
+  }catch(e){}
   fillRes(rec);show("res","replace");render("all");setTab("all");doBackup();
   try{localStorage.removeItem(KEY)}catch(e){}
 }
@@ -614,7 +625,7 @@ var firebaseConfig = {
   appId: "1:275937176501:web:68e33b75d65f8cfae807fc"
 };
 var ADMIN_PASSWORD = "047312";
-var liveDb = null, liveData = null, liveQs = [], liveAns = [], liveTimerInt = null, liveEndAt = 0, liveExamId = null, liveStudent = null, liveSubmitted = false;
+var liveDb = null, liveData = null, liveQs = [], liveAns = [], liveTimerInt = null, liveEndAt = 0, liveExamId = null, liveStudent = null, liveSubmitted = false, liveRunning = false, livePastRows = [];
 function liveFirebaseConfigured(){
   return !!(firebaseConfig && firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf("PASTE_YOUR") !== 0 && firebaseConfig.databaseURL && firebaseConfig.databaseURL.indexOf("PASTE_YOUR") !== 0);
 }
@@ -633,7 +644,9 @@ function liveHideOriginal(){
   var f=document.getElementById("foot"); if(f) f.classList.add("hide");
 }
 function liveBackHome(){
+  liveRunning = false;
   ["liveAdmin","liveExam"].forEach(function(x){ var e=document.getElementById(x); if(e) e.classList.add("hide"); });
+  if(liveData) liveUpdateBanner(liveData);
   try{ show("home","pop"); }catch(e){ document.getElementById("home").classList.remove("hide"); }
 }
 function liveShowAdmin(){
@@ -662,8 +675,12 @@ function liveCatHtml(cat){
   return cat ? '<span class="catChip">📂 ' + cat + '</span>' : '';
 }
 function liveUpdateBanner(d){
+  if(liveRunning) return;
   liveData = d;
   var b = document.getElementById("liveBanner");
+  var runEl = document.getElementById("liveRun");
+  if(runEl && !runEl.classList.contains("hide")){ b.classList.remove("on"); b.style.display = "none"; return; }
+  b.style.display = "";
   var home = document.getElementById("liveHomeCard");
   if(liveIsLive(d)){
     document.getElementById("liveBannerText").textContent = "🔴 LIVE EXAM — " + (d.name || "পরীক্ষা");
@@ -693,8 +710,9 @@ function liveLoadExamList(){
       var isLive = liveIsLive(ex);
       var canStart = isLive && (liveData && liveData.examId === ex.examId || ex.questions);
       var isLatest = (ex.examId === latestLiveId);
-      if(isLatest){ c.style.border = "2px solid #d23b4b"; c.style.background = "#fff5f6"; c.style.animation = "liveblink 1.2s infinite"; }
-      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLatest ? "🔴 LIVE — " : "") + (ex.name || "পরীক্ষা");
+      if(isLatest){ c.style.border = "2px solid #d23b4b"; c.style.background = "#fff5f6"; }
+      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = (isLatest ? "LIVE — " : "") + (ex.name || "পরীক্ষা");
+      if(isLatest){ var dot = document.createElement("span"); dot.className = "liveDotRed"; h.prepend(dot); }
       var num = document.createElement("div"); num.style.fontWeight = "700"; num.style.color = "#1a5cff"; num.textContent = BN(idx+1) + " নম্বর পরীক্ষা";
       // number is added after the name below
       var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + (ex.endAt ? " • শেষ: " + new Date(ex.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
@@ -720,10 +738,88 @@ function liveStartFromList(examId){
     else { alert("এই পরীক্ষাটা এখন লাইভ নেই।"); }
   });
 }
+
+function liveDeleteMyResult(){
+  if(!liveExamId || !liveStudent || !liveStudent.studentId){ alert("কোনো রেজাল্ট বেছে নেওয়া হয়নি।"); return; }
+  if(!confirm("এই রেজাল্ট ডিলিট করতে চাও? ডিলিট হলে এই আইডি দিয়ে আবার পরীক্ষা দিতে পারবে।")) return;
+  if(!liveInit()){ alert(liveNeedSetupMsg()); return; }
+  liveDb.ref("results/" + liveExamId + "/" + liveSafeId(liveStudent.studentId)).remove().then(function(){
+    liveSubmitted = false; liveRunning = false;
+    document.getElementById("liveResult").classList.add("hide");
+    if(liveData && liveIsLive(liveData)){ liveBannerTap(); } else { liveBackHome(); }
+  }).catch(function(e){ alert("ডিলিট করতে সমস্যা হয়েছে: " + e.message); });
+}
+function liveAdminDeleteResult(eid, safeKey){
+  if(!confirm("এই রেজাল্ট ডিলিট করতে চাও?")) return;
+  if(!liveInit()){ alert(liveNeedSetupMsg()); return; }
+  liveDb.ref("results/" + eid + "/" + safeKey).remove().then(function(){ liveLoadAdminResults(); }).catch(function(e){ alert("ডিলিট করতে সমস্যা হয়েছে: " + e.message); });
+}
+function liveLoadPastResults(){
+  var sid = document.getElementById("pastLiveId").value.trim();
+  var box = document.getElementById("pastLiveList");
+  document.getElementById("pastLiveDetailWrap").classList.add("hide");
+  if(!sid){ box.innerHTML = "<p class='mu'>আগে তোমার আইডি লেখো।</p>"; return; }
+  if(!liveInit()){ box.innerHTML = "<p class='mu'>" + liveNeedSetupMsg() + "</p>"; return; }
+  box.innerHTML = "<p class='mu'>লোড হচ্ছে…</p>";
+  Promise.all([liveDb.ref("liveExam/history").once("value"), liveDb.ref("results").once("value")]).then(function(res){
+    var hist = res[0].val() || {}, allRes = res[1].val() || {};
+    var rows = [];
+    Object.keys(allRes).forEach(function(eid){
+      if(eid === "file-upload") return;
+      Object.keys(allRes[eid]).forEach(function(key){
+        var r = allRes[eid][key];
+        if(r && (r.studentId === sid || liveSafeId(r.studentId) === liveSafeId(sid))){
+          rows.push({ rec: r, eid: eid, key: key, meta: hist[eid] || { name: r.examName || eid, category: r.category || "" } });
+        }
+      });
+    });
+    rows.sort(function(a,b){ return (a.rec.submittedAt||0) - (b.rec.submittedAt||0); });
+    livePastRows = rows;
+    if(!rows.length){ box.innerHTML = "<p class='mu'>এই আইডিতে কোনো পুরনো লাইভ রেজাল্ট পাওয়া যায়নি।</p>"; return; }
+    box.textContent = "";
+    rows.forEach(function(row, idx){
+      var r = row.rec, c = document.createElement("div"); c.className = "card";
+      var h = document.createElement("div"); h.style.fontWeight = "700"; h.style.fontSize = "19px"; h.textContent = row.meta.name || r.examName || "পরীক্ষা"; c.appendChild(h);
+      var num = document.createElement("div"); num.style.fontWeight = "700"; num.style.color = "#1a5cff"; num.textContent = BN(idx+1) + " নম্বর পরীক্ষা"; c.appendChild(num);
+      var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px";
+      var d = ""; try{ d = new Date(r.submittedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}); }catch(e){}
+      m.textContent = "নম্বর: " + fm(r.score) + " / " + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + (d ? " • " + d : "");
+      c.appendChild(m);
+      var b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = "বিস্তারিত দেখো";
+      b.onclick = function(){ liveShowPastDetail(idx); };
+      c.appendChild(b); box.appendChild(c);
+    });
+  }).catch(function(e){ box.innerHTML = "<p class='mu'>আনতে সমস্যা হয়েছে: " + e.message + "</p>"; });
+}
+function liveShowPastDetail(idx){
+  var row = livePastRows[idx]; if(!row) return;
+  var r = row.rec, qs = (row.meta && row.meta.questions) || [];
+  var wrap = document.getElementById("pastLiveDetailWrap");
+  document.getElementById("pastLiveDetailTitle").textContent = (row.meta.name || r.examName || "পরীক্ষা") + " — বিস্তারিত";
+  var body = document.getElementById("pastLiveDetailBody"); body.textContent = "";
+  var sum = document.createElement("p"); sum.className = "mu"; sum.style.fontSize = "15px";
+  sum.textContent = "নম্বর: " + fm(r.score) + " / " + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped);
+  body.appendChild(sum);
+  if(!qs.length){ var p = document.createElement("p"); p.className = "mu"; p.textContent = "এই পরীক্ষার প্রশ্নের বিস্তারিত পাওয়া যায়নি, শুধু নম্বর দেখা যাচ্ছে।"; body.appendChild(p); }
+  qs.forEach(function(q, i){
+    var a = (r.answers && r.answers[i] !== undefined) ? r.answers[i] : -1;
+    var st = a < 0 ? "skip" : a === q.a ? "ok" : "wrong";
+    var c = document.createElement("div"); c.className = "card qc";
+    var h = document.createElement("div"); h.className = "q"; h.textContent = BN(i+1) + ". " + q.q; c.appendChild(h);
+    q.o.forEach(function(o, j){
+      var b = document.createElement("button"); b.className = "opt" + (j === q.a ? " ok" : j === a ? " no" : ""); b.disabled = true;
+      b.textContent = LET[j] + ") " + o; c.appendChild(b);
+    });
+    var t = document.createElement("div"); t.className = "tag " + st;
+    t.textContent = st === "ok" ? "✔ সঠিক" : st === "wrong" ? "✘ ভুল — সঠিক উত্তর: (" + LET[q.a] + ")" : "উত্তর দাওনি — সঠিক উত্তর: (" + LET[q.a] + ")";
+    c.appendChild(t); body.appendChild(c);
+  });
+  wrap.classList.remove("hide");
+  try{ wrap.scrollIntoView(); }catch(e){}
+}
 function liveWatch(){
   if(!liveInit()) return;
-  liveDb.ref("liveExam/current").on("value", function(snap){ liveUpdateBanner(snap.val()); liveLoadExamList(); });
-  setInterval(function(){ if(liveData) liveUpdateBanner(liveData); liveLoadExamList(); }, 30000);
+  liveDb.ref("liveExam/current").on("value", function(snap){ if(liveRunning) return; liveUpdateBanner(snap.val()); liveLoadExamList(); });
 }
 document.getElementById("liveExamFile").addEventListener("change", function(e){
   var f = e.target.files[0]; if(!f) return;
@@ -763,6 +859,7 @@ function liveStop(){
   .catch(function(e){ document.getElementById("liveAdminMsg").textContent = "বন্ধ করতে সমস্যা হয়েছে: " + e.message; });
 }
 function liveBannerTap(){
+  if(liveRunning) return;
   if(!liveInit()){ alert(liveNeedSetupMsg()); return; }
   if(!liveData){ alert("এখন কোনো লাইভ পরীক্ষা পাওয়া যায়নি।"); return; }
   if(!liveIsLive(liveData)){ alert("এখন কোনো লাইভ পরীক্ষা চলছে না।"); return; }
@@ -778,19 +875,22 @@ function liveBannerTap(){
   window.scrollTo(0,0);
 }
 function liveSafeId(sid){ return String(sid).replace(/[.$#\[\]\/]/g, "_"); }
+function liveStartErrMsg(msg){ var e = document.getElementById("liveStartErr"); e.textContent = msg; try{ e.scrollIntoView(); }catch(err){} }
 function liveStartExam(){
   var sid = document.getElementById("liveStudentId").value.trim();
   var sname = document.getElementById("liveStudentName").value.trim();
-  if(!sid){ document.getElementById("liveStartErr").textContent = "তোমার আইডি লেখো।"; return; }
-  if(!liveData || !liveData.examId){ document.getElementById("liveStartErr").textContent = "লাইভ পরীক্ষা পাওয়া যায়নি।"; return; }
+  if(!sid){ liveStartErrMsg("তোমার আইডি লেখো।"); return; }
+  if(!liveData || !liveData.examId){ liveStartErrMsg("লাইভ পরীক্ষা পাওয়া যায়নি।"); return; }
   liveExamId = liveData.examId;
   liveDb.ref("results/" + liveExamId + "/" + liveSafeId(sid)).once("value").then(function(snap){
     if(snap.exists()){
-      document.getElementById("liveStartErr").textContent = "তুমি এই পরীক্ষাটা আগেই দিয়েছো। একটা পরীক্ষা একবারই দেওয়া যাবে।";
+      liveStartErrMsg("তুমি এই পরীক্ষাটা আগেই দিয়েছো। একটা পরীক্ষা একবারই দেওয়া যাবে।");
       return;
     }
     liveStudent = { studentId: sid, name: sname };
-    liveQs = liveData.questions || [];
+    liveQs = (liveData.questions || []).slice();
+    liveRunning = true;
+    var bannerEl = document.getElementById("liveBanner"); bannerEl.classList.remove("on"); bannerEl.style.display = "none";
     liveAns = liveQs.map(function(){ return -1; });
     liveSubmitted = false;
     var now = Date.now();
@@ -801,7 +901,7 @@ function liveStartExam(){
     clearInterval(liveTimerInt);
     liveTimerInt = setInterval(liveTick, 1000);
     window.scrollTo(0,0);
-  }).catch(function(e){ document.getElementById("liveStartErr").textContent = "শুরু করতে সমস্যা হয়েছে: " + e.message; });
+  }).catch(function(e){ liveStartErrMsg("শুরু করতে সমস্যা হয়েছে: " + e.message); });
 }
 function liveTick(){
   var left = Math.max(0, Math.round((liveEndAt - Date.now())/1000));
@@ -855,6 +955,7 @@ function liveSubmit(auto){
   }).catch(function(e){ alert("ফলাফল সেভ করতে সমস্যা হয়েছে: " + e.message); liveSubmitted = false; });
 }
 function liveShowResult(rec, auto){
+  liveRunning = false;
   document.getElementById("liveRun").classList.add("hide");
   document.getElementById("liveResult").classList.remove("hide");
   document.getElementById("liveResTitle").textContent = (liveData.name || "Live Exam") + " — ফলাফল";
@@ -922,16 +1023,17 @@ function liveLoadAdminResults(){
       var meta = examsById[eid] || { name: eid, category: "" };
       var cat = meta.category || "ক্যাটাগরি ছাড়া";
       if(!byCat[cat]) byCat[cat] = [];
-      Object.keys(allRes[eid]).forEach(function(sid){ byCat[cat].push(allRes[eid][sid]); });
+      Object.keys(allRes[eid]).forEach(function(sid){ byCat[cat].push({ r: allRes[eid][sid], eid: eid, sid: sid }); });
     });
     var html = "";
     Object.keys(byCat).forEach(function(cat){
       var rows = byCat[cat];
       html += "<h3>📂 ক্যাটাগরি: " + cat + " (" + rows.length + " জন)</h3>";
-      html += "<h4>🏆 লিডারবোর্ড</h4>" + liveLeaderHtml(rows);
-      html += "<h4>সব ফলাফল</h4>" + rows.map(function(r){
+      html += "<h4>🏆 লিডারবোর্ড</h4>" + liveLeaderHtml(rows.map(function(x){ return x.r; }));
+      html += "<h4>সব ফলাফল</h4>" + rows.map(function(x){
+        var r = x.r;
         var d = ""; try{ d = new Date(r.submittedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}); }catch(e){}
-        return "<div class='hrow'><b>" + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + (r.examName || "") + " • " + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + " • " + d + "</span></div>";
+        return "<div class='hrow'><b>" + (r.name || r.studentId) + "</b> <span class='small'>(" + r.studentId + ")</span><br><span>" + (r.examName || "") + " • " + fm(r.score) + "/" + BN(r.total) + " • ✔ " + BN(r.correct) + " • ✘ " + BN(r.wrong) + " • বাদ " + BN(r.skipped) + " • " + d + "</span><br><button class='btn alt' type='button' onclick=\"liveAdminDeleteResult('" + x.eid + "', '" + x.sid + "')\">🗑 ডিলিট</button></div>";
       }).join("");
     });
     box.innerHTML = html || "<p class='mu'>এখনো কোনো ফলাফল নেই।</p>";

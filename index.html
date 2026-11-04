@@ -669,7 +669,8 @@ function liveAdminLogin(){
 function liveIsLive(d){
   if(!d || d.status !== "live") return false;
   var now = Date.now();
-  return (!d.startAt || now >= d.startAt) && (!d.endAt || now <= d.endAt);
+  // পরীক্ষা শেষ সময়ে বন্ধ হবে না; পরের পরীক্ষা আপলোড হলে আগেরটা বন্ধ হবে
+  return (!d.startAt || now >= d.startAt);
 }
 function liveCatHtml(cat){
   return cat ? '<span class="catChip">📂 ' + cat + '</span>' : '';
@@ -688,7 +689,7 @@ function liveUpdateBanner(d){
     b.classList.add("on");
     document.getElementById("liveHomeCat").innerHTML = liveCatHtml(d.category);
     document.getElementById("liveHomeName").textContent = d.name || "";
-    document.getElementById("liveHomeTime").textContent = "সময়: " + (d.durationMinutes || "") + " মিনিট" + (d.endAt ? " • শেষ: " + new Date(d.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+    document.getElementById("liveHomeTime").textContent = "সময়: " + (d.durationMinutes || "") + " মিনিট" + " • পরের পরীক্ষা না আসা পর্যন্ত চলবে";
     home.classList.add("hide"); // তালিকা আর ব্যানারেই লাইভ পরীক্ষা দেখাবে, ডাবল দেখাবে না
   } else {
     b.classList.remove("on");
@@ -716,7 +717,7 @@ function liveLoadExamList(){
       if(isLatest){ var dot = document.createElement("span"); dot.className = "liveDotRed"; h.prepend(dot); }
       var num = document.createElement("div"); num.style.fontWeight = "700"; num.style.color = "#1a5cff"; num.textContent = BN(idx+1) + " নম্বর পরীক্ষা";
       // number is added after the name below
-      var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + (ex.endAt ? " • শেষ: " + new Date(ex.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+      var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + " • পরের পরীক্ষা না আসা পর্যন্ত চলবে";
       c.append(h, num, m);
       if(canStart){
         var b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = "পরীক্ষা দাও";
@@ -897,7 +898,7 @@ function liveBannerTap(){
   document.getElementById("liveResult").classList.add("hide");
   document.getElementById("liveStartName").textContent = liveData.name || "Live Exam";
   document.getElementById("liveStartCat").innerHTML = liveCatHtml(liveData.category);
-  document.getElementById("liveStartMeta").textContent = "সময়: " + (liveData.durationMinutes || "") + " মিনিট" + (liveData.endAt ? " • শেষ: " + new Date(liveData.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+  document.getElementById("liveStartMeta").textContent = "সময়: " + (liveData.durationMinutes || "") + " মিনিট" + " • পরের পরীক্ষা না আসা পর্যন্ত চলবে";
   document.getElementById("liveStartErr").textContent = "";
   window.scrollTo(0,0);
 }
@@ -918,7 +919,7 @@ function liveStartExam(){
     liveAns = liveQs.map(function(){ return -1; });
     liveSubmitted = false;
     var now = Date.now();
-    liveEndAt = Math.min(now + (liveData.durationMinutes || 30)*60000, liveData.endAt || (now + (liveData.durationMinutes || 30)*60000));
+    liveEndAt = now + (liveData.durationMinutes || 30)*60000;
     document.getElementById("liveStart").classList.add("hide");
     document.getElementById("liveRun").classList.remove("hide");
     liveBuild(); liveUpd(); liveTick();
@@ -1023,7 +1024,7 @@ function liveShowLeaderboard(silent){
   if(!liveExamId && !(liveData && liveData.examId)){ if(!silent) alert("কোনো লাইভ পরীক্ষা বেছে নেওয়া হয়নি।"); return; }
   var eid = liveExamId || liveData.examId;
   var ended = false;
-  if(liveData && liveData.examId === eid){ ended = (liveData.status === "stopped") || (liveData.endAt && Date.now() > liveData.endAt); }
+  if(liveData && liveData.examId === eid){ ended = (liveData.status === "stopped"); }
   liveDb.ref("results/" + eid).once("value").then(function(snap){
     var rows = [];
     snap.forEach(function(ch){ rows.push(ch.val()); });

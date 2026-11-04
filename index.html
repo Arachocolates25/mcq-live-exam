@@ -226,7 +226,7 @@ button:focus-visible,label:focus-within{outline:3px solid var(--bl2);outline-off
   <div class="fmt"><b>নম্বর কীভাবে হবে</b>প্রতিটি সঠিক উত্তরে 1 নম্বর। প্রতিটি ভুলে 0.25 কাটা যাবে, অর্থাৎ 4টা ভুলে 1 নম্বর। উত্তর না দিলে কিছু কাটা যাবে না।</div></details>
 </div>
 <div class="row2"><button class="btn alt" id="histBtn">📋 ফলাফল</button><button class="btn alt" id="xBtn">📊 সুবিধা</button><button class="btn alt" id="bkBtn">💾 ব্যাকআপ</button></div>
-<div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div>
+<div class="card hide" id="liveHomeCard"><h2>🔴 লাইভ পরীক্ষা চলছে</h2><div id="liveHomeCat"></div><p id="liveHomeName" style="font-weight:700;margin:8px 0"></p><p class="mu" id="liveHomeTime" style="font-size:14px"></p><button class="btn" type="button" onclick="liveBannerTap()">পরীক্ষা শুরু করো</button></div><div class="card" id="liveExamListWrap"><h2>📋 সব পরীক্ষা</h2><p class="mu" style="font-size:14px">তুমি যত পরীক্ষা আপডেট করবে, একের পর এক এখানে দেখা যাবে। যেকোনো লাইভ পরীক্ষায় চাপ দিলেই পরীক্ষা শুরু হবে।</p><div id="liveExamList"></div></div>
 <div class="row2"><button class="btn alt" type="button" onclick="liveShowAdmin()">🔐 অ্যাডমিন</button></div>
 <div class="card hide" id="resume"><h2>আগের পরীক্ষা অসম্পূর্ণ আছে</h2><button class="btn alt" id="resumeBtn" style="margin-top:0">চালিয়ে যাও</button></div>
 </section>
@@ -678,10 +678,46 @@ function liveUpdateBanner(d){
     home.classList.add("hide");
   }
 }
+function liveLoadExamList(){
+  if(!liveInit()) return;
+  liveDb.ref("liveExam/history").once("value").then(function(snap){
+    var all = snap.val() || {};
+    var list = Object.keys(all).map(function(k){ return all[k]; }).sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
+    var box = document.getElementById("liveExamList"); if(!box) return;
+    if(!list.length){ box.innerHTML = "<p class=\"mu\" style=\"font-size:14px\">এখনো কোনো পরীক্ষা আপডেট করা হয়নি।</p>"; return; }
+    box.innerHTML = "";
+    list.forEach(function(ex){
+      var c = document.createElement("div"); c.className = "card";
+      var isLive = liveIsLive(ex);
+      var canStart = isLive && (liveData && liveData.examId === ex.examId || ex.questions);
+      var h = document.createElement("div"); h.style.fontWeight = "700"; h.textContent = (isLive ? "🔴 " : "") + (ex.name || "পরীক্ষা");
+      var m = document.createElement("div"); m.className = "mu"; m.style.fontSize = "14px"; m.innerHTML = liveCatHtml(ex.category) + " • সময়: " + (ex.durationMinutes || "") + " মিনিট" + (ex.endAt ? " • শেষ: " + new Date(ex.endAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}) : "");
+      c.append(h, m);
+      if(canStart){
+        var b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = "পরীক্ষা দাও";
+        b.onclick = function(){ liveStartFromList(ex.examId); };
+        c.appendChild(b);
+      } else {
+        var s = document.createElement("p"); s.className = "mu"; s.style.fontSize = "14px"; s.textContent = isLive ? "এই পরীক্ষাটা এখন লাইভ, কিন্তু প্রশ্ন লোড করা যাচ্ছে না।" : "এই পরীক্ষাটা এখন লাইভ নেই।";
+        c.appendChild(s);
+      }
+      box.appendChild(c);
+    });
+  }).catch(function(){});
+}
+function liveStartFromList(examId){
+  if(!liveInit()){ alert(liveNeedSetupMsg()); return; }
+  if(liveData && liveData.examId === examId){ liveBannerTap(); return; }
+  liveDb.ref("liveExam/history/" + examId).once("value").then(function(snap){
+    var ex = snap.val();
+    if(ex && ex.questions && liveIsLive(ex)){ liveData = ex; liveUpdateBanner(ex); liveBannerTap(); }
+    else { alert("এই পরীক্ষাটা এখন লাইভ নেই।"); }
+  });
+}
 function liveWatch(){
   if(!liveInit()) return;
-  liveDb.ref("liveExam/current").on("value", function(snap){ liveUpdateBanner(snap.val()); });
-  setInterval(function(){ if(liveData) liveUpdateBanner(liveData); }, 30000);
+  liveDb.ref("liveExam/current").on("value", function(snap){ liveUpdateBanner(snap.val()); liveLoadExamList(); });
+  setInterval(function(){ if(liveData) liveUpdateBanner(liveData); liveLoadExamList(); }, 30000);
 }
 document.getElementById("liveExamFile").addEventListener("change", function(e){
   var f = e.target.files[0]; if(!f) return;
@@ -706,7 +742,7 @@ function livePublish(){
   var examId = "exam_" + Date.now();
   var data = { examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: startV ? new Date(startV).getTime() : Date.now(), endAt: endV ? new Date(endV).getTime() : Date.now() + minutes*60000, status: "live", createdAt: Date.now() };
   liveDb.ref("liveExam/current").set(data).then(function(){
-    return liveDb.ref("liveExam/history/" + examId).set({ examId: examId, name: name, category: category, durationMinutes: minutes, startAt: data.startAt, endAt: data.endAt, createdAt: data.createdAt, status: "live" });
+    return liveDb.ref("liveExam/history/" + examId).set({ examId: examId, name: name, category: category, questions: parsed.out, durationMinutes: minutes, startAt: data.startAt, endAt: data.endAt, createdAt: data.createdAt, status: "live" });
   }).then(function(){
     document.getElementById("liveAdminMsg").textContent = "✅ Live হয়ে গেছে! ক্যাটাগরি: " + category + " • প্রশ্ন: " + parsed.out.length + "টি";
   }).catch(function(e){ document.getElementById("liveAdminMsg").textContent = "Live করতে সমস্যা হয়েছে: " + e.message; });
